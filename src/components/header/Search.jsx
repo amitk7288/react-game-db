@@ -10,6 +10,7 @@ export default function Search({ isSearchOpen }) {
     if (isSearchOpen && searchInputRef) {
       searchInputRef.current.focus();
     }
+    {!isSearchOpen && setSearchQuery("")}
   }, [isSearchOpen]);
 
   return (
@@ -19,7 +20,7 @@ export default function Search({ isSearchOpen }) {
     >
       <PiMagnifyingGlassBold className="text-lg" />
       <input
-        className="dark:text-drkcol w-[100%] border-none bg-[transparent] p-0 text-sm font-medium text-black outline-none focus:ring-0"
+        className="dark:text-drkcol w-[100%] border-none bg-[transparent] p-0 text-sm xl:text-base font-medium text-black outline-none focus:ring-0"
         type="search"
         name="searchgames"
         id="searchgames"
