@@ -38,7 +38,7 @@ const Header = () => {
   
 
   return (
-    <header className="dark:bg-drkbg dark:text-drkcol fixed right-0 top-0 h-[80px] w-full bg-white py-5 pl-[12px] pr-5 lg:w-[calc(100%_-_20vw)] lg:p-5 2xl:w-[calc(100%_-_20vw)]">
+    <header className="dark:bg-drkbg dark:text-drkcol fixed right-0 top-0 h-[80px] w-full bg-white py-5 pl-[12px] pr-5 lg:w-[calc(100%_-_20vw)] lg:p-5 2xl:w-[calc(100%_-_20vw)] border-b dark:border-drkbrd">
       <div
         id="mobile search"
         className={`absolute left-0 ${isSearchOpen ? `top-0 flex flex-col justify-center` : `top-[-80px]`} duration-400 z-10 h-[inherit] w-full bg-[#f7f7f7] transition-all ease-in-out lg:hidden dark:bg-drkbg2`}
