@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter", "sans-serif", ...defaultTheme.fontFamily.sans],
+        sans: ["Outfit", "sans-serif", ...defaultTheme.fontFamily.sans],
       },
       colors: {
         drkbg: "#232730",
@@ -16,6 +16,10 @@ export default {
         drkbrd: "rgba(136, 136, 136, 0.3)",
         hvrcol: "rgba(35,39,47,.05)",
         drkhvrcol: "rgba(246,247,249,.05)",
+      },
+      screens: {
+        xs: "480px",
+        "3xl": "1920px",
       },
     },
   },
