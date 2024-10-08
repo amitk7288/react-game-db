@@ -1,13 +1,80 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import useDarkMode from "../../hooks/usedarkMode";
 import logo from "../../assets/temp-logo.png";
 import me from "../../assets/me.jpg";
 import Search from "./Search";
 import { RiMenu2Fill, RiCloseLargeLine } from "react-icons/ri";
 import { PiSun, PiMoonStars, PiMagnifyingGlass } from "react-icons/pi";
+import {
+  PiSquaresFour,
+  PiSquaresFourDuotone,
+  PiBook,
+  PiBookDuotone,
+  PiUsers,
+  PiUsersDuotone,
+  PiHeart,
+  PiHeartDuotone,
+  PiMagicWand,
+  PiMagicWandDuotone,
+  PiBookmarkSimple,
+  PiBookmarkSimpleDuotone,
+} from "react-icons/pi";
 
 const Header = () => {
+const mobMenuIcons = [
+  {
+    id: 1,
+    icon: <PiSquaresFour />,
+    activeIcon: <PiSquaresFourDuotone />,
+    iconText: "Genres",
+    path: "/genres",
+    active: false,
+  },
+  {
+    id: 2,
+    icon: <PiBook />,
+    activeIcon: <PiBookDuotone />,
+    iconText: "Library",
+    path: "/library",
+    active: false,
+  },
+  {
+    id: 4,
+    icon: <PiUsers />,
+    activeIcon: <PiUsersDuotone />,
+    iconText: "Friends",
+    path: "/friends",
+    active: false,
+  },
+  {
+    id: 6,
+    icon: <PiHeart />,
+    activeIcon: <PiHeartDuotone />,
+    iconText: "Favourites",
+    path: "/favourites",
+    active: false,
+  },
+  {
+    id: 7,
+    icon: <PiMagicWand />,
+    activeIcon: <PiMagicWandDuotone />,
+    iconText: "Wishlist",
+    path: "/wishlist",
+    active: false,
+  },
+  {
+    id: 8,
+    icon: <PiBookmarkSimple />,
+    activeIcon: <PiBookmarkSimpleDuotone />,
+    iconText: "Collections",
+    path: "/collections",
+    active: false,
+  },
+];
+
   const [isMobMenuOpen, setIsMobMenuOpen] = useState(false);
+  const [mobMenu, setMobMenu] = useState(mobMenuIcons);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [theme, toggleTheme] = useDarkMode();
 
@@ -33,7 +100,18 @@ const Header = () => {
     };
   }, [searchMobContainer, setIsSearchOpen]);
 
-  //lg:w-[calc(100%_-_20vw)] xl:w-[calc(100%_-_18vw)] 2xl:w-[calc(100%_-_15vw)] 3xl:w-[calc(100%_-_12vw)]
+    const handleClickIcon = (clickedIconID) => {
+      setMobMenu((prevState) =>
+        prevState.map((icon) =>
+          icon.id === clickedIconID
+            ? { ...icon, active: true }
+            : { ...icon, active: false },
+        ),
+      );
+      setTimeout(() => {
+        setIsMobMenuOpen(false);
+      }, 275);
+    };
 
   return (
     <header className="fixed right-0 top-0 h-[80px] w-full border-b bg-white py-5 pl-[12px] pr-5 lg:w-[calc(100%_-_20vw)] lg:p-5 xl:w-[calc(100%_-_18vw)] 2xl:w-[calc(100%_-_15vw)] 3xl:w-[calc(100%_-_12vw)] dark:border-drkbrd dark:bg-drkbg dark:text-drkcol">
@@ -138,19 +216,26 @@ const Header = () => {
               <div className="h-7 w-7 overflow-hidden rounded-full">
                 <img src={me} alt="profilepic" />
               </div>
-              <p>Me</p>
+              <p>Amit Kadara</p>
             </div>
           </div>
           <nav className="flex flex-col gap-7">
-            <div className="dark:text-drkcol">
-              <div className="mb-2 flex items-center gap-3">
-                <div
-                  className={`duration-400 flex items-center gap-3 transition-all ease-in-out`}
-                ></div>
-                Mobile menu
+            {mobMenu.map((item) => (
+              <div key={item.id} className="dark:text-drkcol">
+                <Link
+                  to={item.path}
+                  className={`flex items-center gap-3 ${item.active && `pl-2`} duration-400 transition-all ease-in-out`}
+                  onClick={() => handleClickIcon(item.id)}
+                >
+                  <div
+                    className={`${item.active && `rounded-full bg-gradient-to-br from-pink-500 to-orange-500 p-1.5 text-white`} text-2xl`}
+                  >
+                    {item.active ? item.activeIcon : item.icon}
+                  </div>
+                  <p className="text-xl xl:text-xl">{item.iconText}</p>
+                </Link>
               </div>
-              <div className="flex flex-wrap items-center gap-5 rounded-md border p-3"></div>
-            </div>
+            ))}
           </nav>
         </div>
       )}

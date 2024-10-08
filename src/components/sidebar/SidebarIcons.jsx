@@ -23,7 +23,7 @@ const sidebarIcons = [
     id: 1,
     icon: <PiSquaresFour />,
     activeIcon: <PiSquaresFourDuotone />,
-    iconText: "All Genres",
+    iconText: "Genres",
     path: "/genres",
     active: false,
   },
