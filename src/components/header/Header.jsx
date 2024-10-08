@@ -1,13 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import useDarkMode from "../../hooks/usedarkMode";
 import logo from "../../assets/temp-logo.png";
-import me from "../../assets/me.jpg"
+import me from "../../assets/me.jpg";
 import Search from "./Search";
-import {
-  RiMenu2Fill,
-  RiCloseLargeLine,
-} from "react-icons/ri";
-import { PiSun, PiMoonStars, PiMagnifyingGlass} from "react-icons/pi";
+import { RiMenu2Fill, RiCloseLargeLine } from "react-icons/ri";
+import { PiSun, PiMoonStars, PiMagnifyingGlass } from "react-icons/pi";
 
 const Header = () => {
   const [isMobMenuOpen, setIsMobMenuOpen] = useState(false);
@@ -18,7 +15,7 @@ const Header = () => {
 
   const handleClickMobSearch = () => {
     setIsSearchOpen((prevState) => !prevState);
-  }
+  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -35,10 +32,11 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [searchMobContainer, setIsSearchOpen]);
-  
+
+  //lg:w-[calc(100%_-_20vw)] xl:w-[calc(100%_-_18vw)] 2xl:w-[calc(100%_-_15vw)] 3xl:w-[calc(100%_-_12vw)]
 
   return (
-    <header className="dark:bg-drkbg dark:text-drkcol fixed right-0 top-0 h-[80px] w-full bg-white py-5 pl-[12px] pr-5 lg:w-[calc(100%_-_20vw)] lg:p-5 2xl:w-[calc(100%_-_20vw)] border-b dark:border-drkbrd">
+    <header className="fixed right-0 top-0 h-[80px] w-full border-b bg-white py-5 pl-[12px] pr-5 lg:w-[calc(100%_-_20vw)] lg:p-5 xl:w-[calc(100%_-_18vw)] 2xl:w-[calc(100%_-_15vw)] 3xl:w-[calc(100%_-_12vw)] dark:border-drkbrd dark:bg-drkbg dark:text-drkcol">
       <div
         id="mobile search"
         className={`absolute left-0 ${isSearchOpen ? `top-0 flex flex-col justify-center` : `top-[-80px]`} duration-400 z-10 h-[inherit] w-full bg-[#f7f7f7] transition-all ease-in-out lg:hidden dark:bg-drkbg2`}
@@ -55,14 +53,14 @@ const Header = () => {
             {isMobMenuOpen ? (
               <div
                 onClick={() => setIsMobMenuOpen((prevState) => !prevState)}
-                className="hover:bg-hvrcol dark:hover:bg-drkhvrcol dark:text-drkcol relative cursor-pointer rounded-full bg-transparent p-2 text-2xl"
+                className="relative cursor-pointer rounded-full bg-transparent p-2 text-2xl hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
               >
                 <RiCloseLargeLine className="z-50" />
               </div>
             ) : (
               <div
                 onClick={() => setIsMobMenuOpen((prevState) => !prevState)}
-                className="hover:bg-hvrcol dark:hover:bg-drkhvrcol dark:text-drkcol relative cursor-pointer rounded-full bg-transparent p-2 text-2xl"
+                className="relative cursor-pointer rounded-full bg-transparent p-2 text-2xl hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
               >
                 <RiMenu2Fill className="z-50" />
               </div>
@@ -84,7 +82,7 @@ const Header = () => {
           className="flex basis-auto items-center justify-between gap-3"
         >
           <div
-            className="hover:bg-hvrcol dark:hover:bg-drkhvrcol dark:text-drkcol relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] lg:hidden"
+            className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol lg:hidden dark:text-drkcol dark:hover:bg-drkhvrcol"
             onClick={handleClickMobSearch}
           >
             <PiMagnifyingGlass />
@@ -93,14 +91,14 @@ const Header = () => {
             {theme === "dark" ? (
               <div
                 onClick={toggleTheme}
-                className="hover:bg-hvrcol dark:hover:bg-drkhvrcol dark:text-drkcol relative cursor-pointer rounded-full bg-transparent p-2 text-[25px]"
+                className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
               >
                 <PiSun />
               </div>
             ) : (
               <div
                 onClick={toggleTheme}
-                className="hover:bg-hvrcol dark:hover:bg-drkhvrcol dark:text-drkcol relative cursor-pointer rounded-full bg-transparent p-2 text-[25px]"
+                className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
               >
                 <PiMoonStars />
               </div>
@@ -110,14 +108,14 @@ const Header = () => {
             {theme === "dark" ? (
               <div
                 onClick={toggleTheme}
-                className="hover:bg-hvrcol dark:hover:bg-drkhvrcol dark:text-drkcol relative cursor-pointer rounded-full bg-transparent p-2 text-[25px]"
+                className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
               >
                 <PiSun />
               </div>
             ) : (
               <div
                 onClick={toggleTheme}
-                className="hover:bg-hvrcol dark:hover:bg-drkhvrcol dark:text-drkcol relative cursor-pointer rounded-full bg-transparent p-2 text-[25px]"
+                className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
               >
                 <PiMoonStars />
               </div>
@@ -126,6 +124,7 @@ const Header = () => {
           <div className="flex cursor-pointer items-center gap-2">
             <div className="h-8 w-8 overflow-hidden rounded-full">
               <img src={me} alt="profilepic" />
+              {/* login info */}
             </div>
           </div>
         </div>
@@ -133,7 +132,7 @@ const Header = () => {
 
       {/* Mob menu */}
       {isMobMenuOpen && (
-        <div className="no-scrollbar dark:bg-drkbg absolute left-0 top-[80px] z-[-1] flex h-[calc(100vh_-_80px)] w-[100vw] flex-col gap-[50px] overflow-y-scroll bg-[#f7f7f7] p-6 lg:hidden">
+        <div className="no-scrollbar absolute left-0 top-[80px] z-[-1] flex h-[calc(100vh_-_80px)] w-[100vw] flex-col gap-[50px] overflow-y-scroll bg-[#f7f7f7] p-6 lg:hidden dark:bg-drkbg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="h-7 w-7 overflow-hidden rounded-full">
@@ -147,17 +146,11 @@ const Header = () => {
               <div className="mb-2 flex items-center gap-3">
                 <div
                   className={`duration-400 flex items-center gap-3 transition-all ease-in-out`}
-                >
-                  
-                </div>
+                ></div>
                 Mobile menu
               </div>
-              <div
-                className=" flex flex-wrap items-center gap-5 rounded-md border p-3"
-              >
-              </div>
+              <div className="flex flex-wrap items-center gap-5 rounded-md border p-3"></div>
             </div>
-
           </nav>
         </div>
       )}

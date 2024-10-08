@@ -1,5 +1,6 @@
+import { Outlet } from "react-router-dom";
 import Header from "./components/header/Header";
-import MainView from "./components/mainview/MainView";
+//import MainView from "./components/mainview/MainView";
 import Sidebar from "./components/sidebar/Sidebar";
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
   return (
     <div className="relative">
       <Header />
-      <MainView />
+      <Outlet />
       <Sidebar />
     </div>
   );

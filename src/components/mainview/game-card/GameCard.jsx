@@ -13,7 +13,7 @@ export default function GameCard() {
   const [wish, setWish] = useState(false);
 
   return (
-    <div className="grid w-full grid-rows-[200px_auto] overflow-hidden rounded-[10px] bg-drkbg2 text-drkcol">
+    <div className="grid w-full grid-rows-[200px_auto] overflow-hidden rounded-[10px] bg-drkbg2 text-drkcol max-w-[500px]">
       {/* Image Section */}
       <div className="relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden">
         <img
