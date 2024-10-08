@@ -21,16 +21,28 @@ export default function MainView() {
               <CardGridContainer title={`Action Games`}>
                 <GameCard />
                 <GameCard />
+                <GameCard />
+                <GameCard />
+                <GameCard />
               </CardGridContainer>
               <CardGridContainer title={`RPG Games`}>
+                <GameCard />
+                <GameCard />
+                <GameCard />
                 <GameCard />
                 <GameCard />
               </CardGridContainer>
               <CardGridContainer title={`First Person Shooter Games`}>
                 <GameCard />
                 <GameCard />
+                <GameCard />
+                <GameCard />
+                <GameCard />
               </CardGridContainer>
               <CardGridContainer title={`My Fav Games`}>
+                <GameCard />
+                <GameCard />
+                <GameCard />
                 <GameCard />
                 <GameCard />
               </CardGridContainer>

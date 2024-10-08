@@ -5,7 +5,7 @@ import {
   RiBookmarkLine,
   RiHeart3Fill,
   RiHeart3Line,
-  RiStarLine,
+  RiStarFill,
 } from "react-icons/ri";
 
 export default function GameCard() {
@@ -13,7 +13,7 @@ export default function GameCard() {
   const [wish, setWish] = useState(false);
 
   return (
-    <div className="grid w-full grid-rows-[200px_auto] overflow-hidden rounded-[10px] bg-drkbg2 text-drkcol max-w-[500px]">
+    <div className="grid w-full max-w-[500px] grid-rows-[200px_auto] overflow-hidden rounded-[10px] bg-slate-800 text-drkcol">
       {/* Image Section */}
       <div className="relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden">
         <img
@@ -27,13 +27,13 @@ export default function GameCard() {
             onClick={() => setSave((save) => !save)}
             className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px]"
           >
-            {save ? <RiBookmarkFill /> : <RiBookmarkLine />}
+            {save ? <RiBookmarkFill className="text-sky-500" /> : <RiBookmarkLine />}
           </div>
           <div
             onClick={() => setWish((wish) => !wish)}
             className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px]"
           >
-            {wish ? <RiHeart3Fill /> : <RiHeart3Line />}
+            {wish ? <RiHeart3Fill className="text-red-500" /> : <RiHeart3Line />}
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@ export default function GameCard() {
           <div className="flex h-[fit-content] items-center justify-center gap-[5px]">
             <p>8.4</p>
             <div className="flex items-center justify-center">
-              <RiStarLine className="text-yellow-600" />
+              <RiStarFill className="text-yellow-600" />
             </div>
           </div>
         </div>

@@ -20,16 +20,16 @@ export default function FeaturedGame() {
         </div>
         <div className="absolute bottom-0 right-0 z-10 m-3 flex items-center gap-2">
           <button className="flex w-fit items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-orange-500 px-2 py-[5px] hover:from-orange-500 hover:to-pink-500 dark:border-drkbrd dark:bg-drkbg dark:text-white">
-            <p className="text-xs text-white xs:text-sm 2xl:text-base tracking-wider">
+            <p className="text-xs text-white xs:text-base 2xl:text-base tracking-wider">
               &nbsp;View game
             </p>
           </button>
           <div
             onClick={() => setLike((like) => !like)}
-            className="bg-[#252f3f] flex h-[27px] w-[27px] cursor-pointer items-center justify-center rounded-lg text-sm text-white xs:h-[31px] xs:w-[31px] xl:text-base 2xl:h-[35px] 2xl:w-[35px] 2xl:text-lg"
+            className="bg-[#252f3f] flex h-[27px] w-[27px] cursor-pointer items-center justify-center rounded-lg text-sm text-white xs:h-[34px] xs:w-[34px] xl:text-base 2xl:h-[35px] 2xl:w-[35px] 2xl:text-lg"
           >
             {like ? (
-              <RiHeart3Fill className="text-red-400" />
+              <RiHeart3Fill className="text-red-500" />
             ) : (
               <RiHeart3Line />
             )}
