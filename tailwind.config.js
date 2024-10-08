@@ -10,7 +10,7 @@ export default {
         sans: ["Outfit", "sans-serif", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        drkbg: "#232730",
+        drkbg: "#151515",
         drkcol: "#d3d3d3",
         drkbg2: "#181a1f",
         drkbrd: "rgba(136, 136, 136, 0.3)",

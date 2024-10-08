@@ -8,11 +8,13 @@ import './index.css'
 
 import ErrorPage from './components/ui-components/ErrorPage.jsx';
 import MainView from './components/mainview/MainView.jsx';
-import CategoryPage from './routes/categories/CategoryPage.jsx';
+import CategoriesPage from "./routes/categories/CategoriesPage.jsx";
 import Library from "./routes/Library.jsx"
 import Friends from "./routes/Friends.jsx";
 import Favourites from "./routes/Favourites.jsx";
 import Wishlist from "./routes/Wishlist.jsx";
+import CategoryPage from "./routes/categories/CategoryPage.jsx";
+import Collections from './routes/Collections.jsx';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +27,11 @@ const router = createBrowserRouter([
         element: <MainView />,
         children: [
           {
-            path: "/categories/action",
+            path: "/genres",
+            element: <CategoriesPage />,
+          },
+          {
+            path: "/genre/action",
             element: <CategoryPage />,
           },
           {
@@ -43,6 +49,10 @@ const router = createBrowserRouter([
           {
             path: "/wishlist",
             element: <Wishlist />,
+          },
+          {
+            path: "/collections",
+            element: <Collections />,
           },
         ],
       },

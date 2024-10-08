@@ -12,8 +12,8 @@ import {
   PiHeartDuotone,
   PiMagicWand,
   PiMagicWandDuotone,
-
-  PiSignOut,
+  PiBookmarkSimple,
+  PiBookmarkSimpleDuotone
 } from "react-icons/pi";
 
 import logo from "../../assets/temp-logo.png";
@@ -23,8 +23,8 @@ const sidebarIcons = [
     id: 1,
     icon: <PiSquaresFour />,
     activeIcon: <PiSquaresFourDuotone />,
-    iconText: "Categories",
-    path: "/categories/action",
+    iconText: "All Genres",
+    path: "/genres",
     active: false,
   },
   {
@@ -57,6 +57,14 @@ const sidebarIcons = [
     activeIcon: <PiMagicWandDuotone />,
     iconText: "Wishlist",
     path: "/wishlist",
+    active: false,
+  },
+  {
+    id: 8,
+    icon: <PiBookmarkSimple />,
+    activeIcon: <PiBookmarkSimpleDuotone />,
+    iconText: "Collections",
+    path: "/collections",
     active: false,
   },
 ];
@@ -123,11 +131,6 @@ export default function SidebarIcons() {
             </Link>
           ))}
         </div>
-      </div>
-      <div className="cursor-pointer text-4xl text-[#a4a6a8] dark:text-drkcol">
-        <a href="#" className="flex w-full cursor-pointer justify-center">
-          <PiSignOut />
-        </a>
       </div>
     </div>
   );
