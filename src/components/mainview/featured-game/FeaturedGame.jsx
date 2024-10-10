@@ -1,8 +1,5 @@
 import { useState } from "react";
 import GameTag from "./GameTag";
-import game from "../../../assets/hogwarts-legacy.jpg";
-import hl1 from "../../../assets/hl-1.jpg";
-import hl2 from "../../../assets/hl-2.jpg";
 import {
   RiHeart3Line,
   RiHeart3Fill,
@@ -20,13 +17,13 @@ export default function FeaturedGame() {
         </div>
         <div className="absolute bottom-0 right-0 z-10 m-3 flex items-center gap-2">
           <button className="flex w-fit items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-orange-500 px-2 py-[5px] hover:from-orange-500 hover:to-pink-500 dark:border-drkbrd dark:bg-drkbg dark:text-white">
-            <p className="text-xs text-white xs:text-base 2xl:text-base tracking-wider">
+            <p className="text-xs tracking-wider text-white xs:text-base 2xl:text-base">
               &nbsp;View game
             </p>
           </button>
           <div
             onClick={() => setLike((like) => !like)}
-            className="bg-[#252f3f] flex h-[27px] w-[27px] cursor-pointer items-center justify-center rounded-lg text-sm text-white xs:h-[34px] xs:w-[34px] xl:text-base 2xl:h-[35px] 2xl:w-[35px] 2xl:text-lg"
+            className="flex h-[27px] w-[27px] cursor-pointer items-center justify-center rounded-lg bg-[#252f3f] text-sm text-white xs:h-[34px] xs:w-[34px] xl:text-base 2xl:h-[35px] 2xl:w-[35px] 2xl:text-lg"
           >
             {like ? (
               <RiHeart3Fill className="text-red-500" />
@@ -35,7 +32,11 @@ export default function FeaturedGame() {
             )}
           </div>
         </div>
-        <img src={game} alt="game" className="w-full rounded-lg" />
+        <img
+          src={`https://wallpapercave.com/wp/wp9996646.jpg`}
+          alt="game"
+          className="w-full rounded-lg"
+        />
       </div>
       <div className="grid-rows-[auto, 100px] grid gap-3 sm:grid-cols-2 md:grid-cols-1">
         <div className="flex basis-[60%] flex-col gap-2 rounded-lg md:p-0">
@@ -65,8 +66,16 @@ export default function FeaturedGame() {
           </div>
         </div>
         <div className="grid grid-cols-2 items-end gap-3">
-          <img src={hl1} alt="game" className="rounded-lg" />
-          <img src={hl2} alt="game" className="rounded-lg" />
+          <img
+            src={`https://media.rawg.io/media/resize/640/-/screenshots/723/7230cc1be966c19d2470a19d277b31e9.jpg`}
+            alt="game"
+            className="rounded-lg"
+          />
+          <img
+            src={`https://media.rawg.io/media/resize/420/-/screenshots/f35/f35c6bcc541808298288ba49e50c37d5.jpg`}
+            alt="game"
+            className="rounded-lg"
+          />
         </div>
       </div>
       <div className="text-center text-xs">slideshow buttons</div>
