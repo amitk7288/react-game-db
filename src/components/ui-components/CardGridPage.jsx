@@ -4,7 +4,7 @@ export default function CardGridPage({ children, title, desc, icon }) {
       <div className="mb-6 flex flex-col items-start gap-2">
         <div className="flex items-center gap-2 text-[60px] font-semibold dark:text-white flex-wrap">
           {icon}
-          <p>{title}</p>
+          <p className="capitalize">{title}</p>
         </div>
         <p className="font-light">{desc}</p>
       </div>
