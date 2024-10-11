@@ -29,8 +29,12 @@ export default function Library() {
           </p>
         </div>
       </div>
-      <CardGridSection title={`Favourites`} icon={<PiHeartDuotone />} btnLink={`/favourites`}>
-        {favGamesData.map((g) => (
+      <CardGridSection
+        title={`Favourites`}
+        icon={<PiHeartDuotone />}
+        btnLink={`/favourites`}
+      >
+        {favGamesData.slice(0, 10).map((g) => (
           <GameCard
             key={g.id}
             img={g.background_image}
@@ -43,8 +47,12 @@ export default function Library() {
         ))}
       </CardGridSection>
 
-      <CardGridSection title={`Wishlist`} icon={<PiMagicWandDuotone />} btnLink={`/wishlist`}>
-        {wishGamesData.map((g) => (
+      <CardGridSection
+        title={`Wishlist`}
+        icon={<PiMagicWandDuotone />}
+        btnLink={`/wishlist`}
+      >
+        {wishGamesData.slice(0, 10).map((g) => (
           <GameCard
             key={g.id}
             img={g.background_image}
