@@ -1,30 +1,60 @@
-import CardGridPage from "../components/ui-components/CardGridPage";
 import CardGridSection from "../components/ui-components/CardGridSection";
 import GameCard from "../components/mainview/game-card/GameCard";
-import { PiBookDuotone } from "react-icons/pi";
+import {
+  PiBookDuotone,
+  PiHeartDuotone,
+  PiMagicWandDuotone,
+} from "react-icons/pi";
+import { useSelector } from "react-redux";
 
 export default function Library() {
+  const favGamesData = useSelector((state) => state.favGames);
+  const wishGamesData = useSelector((state) => state.wishGames);
+
   return (
     <>
-      <CardGridPage
-        title={`Library`}
-        desc={`
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, cumque pariatur neque praesentium suscipit atque sapiente excepturi tempora, quas accusamus quia vero quis, libero dolor adipisci beatae provident? Mollitia ratione suscipit illum odit adipisci repudiandae fuga. Distinctio perferendis natus numquam. Dolor nostrum aperiam, at inventore iusto maiores deleniti quasi blanditiis iure, sequi odio ex ut aut laboriosam vel consequuntur sint aspernatur molestias deserunt? Eum, deserunt id perferendis repellendus iste delectus non reprehenderit accusantium numquam explicabo incidunt nulla doloribus vero iure distinctio voluptas? Voluptatem velit alias quos asperiores autem officia necessitatibus, quis similique soluta, obcaecati non, vel odit possimus laudantium repellendus ad tempora earum ratione saepe dignissimos qui odio? Accusantium est expedita facere amet, dolorum necessitatibus quae exercitationem voluptatem assumenda voluptates, eaque quaerat ipsa molestiae eligendi, repudiandae cum rem reprehenderit ea nihil? Officiis quisquam nulla unde molestias. Nostrum dolorum nihil in nobis? Optio reiciendis voluptatum laboriosam reprehenderit quaerat praesentium. Animi, cum.`}
-        icon={<PiBookDuotone />}
-      ></CardGridPage>
-      <CardGridSection title={`Favourite Games`}>
-        <GameCard />
-        <GameCard />
-        <GameCard />
-        <GameCard />
-        <GameCard />
+      <div className="mb-6 flex flex-col gap-3 p-2">
+        <div className="mb-6 flex flex-col items-start gap-2">
+          <div className="flex flex-wrap items-center gap-2 text-[60px] font-semibold dark:text-white">
+            <PiBookDuotone />
+            <p className="capitalize">Library</p>
+          </div>
+          <p className="font-light">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat
+            laboriosam qui dignissimos dolorem aut sunt. Expedita repudiandae
+            enim fugit animi aliquam accusantium. Optio nisi possimus vitae
+            nulla officia consequuntur sit doloribus distinctio necessitatibus
+            autem voluptates cumque iusto eos omnis minima, asperiores assumenda
+            ut excepturi rerum? Debitis quod perferendis labore assumenda.
+          </p>
+        </div>
+      </div>
+      <CardGridSection title={`Favourites`} icon={<PiHeartDuotone />} btnLink={`/favourites`}>
+        {favGamesData.map((g) => (
+          <GameCard
+            key={g.id}
+            img={g.background_image}
+            title={g.name}
+            rating={g.metacritic}
+            genre={g.genres[0].name}
+            slug={g.slug}
+            game={g}
+          />
+        ))}
       </CardGridSection>
-      <CardGridSection title={`Wishlist`}>
-        <GameCard />
-        <GameCard />
-        <GameCard />
-        <GameCard />
-        <GameCard />
+
+      <CardGridSection title={`Wishlist`} icon={<PiMagicWandDuotone />} btnLink={`/wishlist`}>
+        {wishGamesData.map((g) => (
+          <GameCard
+            key={g.id}
+            img={g.background_image}
+            title={g.name}
+            rating={g.metacritic}
+            genre={g.genres[0].name}
+            slug={g.slug}
+            game={g}
+          />
+        ))}
       </CardGridSection>
     </>
   );

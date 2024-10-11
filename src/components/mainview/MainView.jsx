@@ -1,19 +1,27 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import FeaturedGame from "./featured-game/FeaturedGame";
+import GameCard from "./game-card/GameCard";
 import CardGridSection from "../ui-components/CardGridSection";
 import { Outlet, useLocation } from "react-router-dom";
-import GameCard from "./game-card/GameCard";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import CardGridPage from "../ui-components/CardGridPage";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchGames } from "../../features/games/gamesSlice";
+import "react-toastify/dist/ReactToastify.css";
+import {PiSwordBold} from "react-icons/pi";
+import { GiPistolGun } from "react-icons/gi";
+import { MdGamepad } from "react-icons/md";
 
 export default function MainView() {
-  const games = useSelector((state) => state.games.data);
   const dispatch = useDispatch();
-  const location = useLocation();
+  const gamesData = useSelector((state) => state.games.data) || [];
+  console.log(gamesData);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [actionGames, setActionGames] = useState([]);
+  const [rpgGames, setRpgGames] = useState([]);
+  const [IndieGames, setIndieGames] = useState([]);
+
+  const location = useLocation();
   const isHomePage = location.pathname === "/";
   const notify = (message) => {
     toast(message, {
@@ -23,10 +31,36 @@ export default function MainView() {
   };
 
   useEffect(() => {
-    dispatch(fetchGames());
-  }, [dispatch]);
+    setIsLoading(true);
 
-  const gamesData = games.results || [];
+    // Fetch Action Games
+    dispatch(fetchGames({ genreId: 4, page: 2, pageSize: 10 }))
+      .unwrap()
+      .then((games) => setActionGames(games))
+      .catch((error) => {
+        console.error("Error fetching action games:", error);
+        notify("Failed to fetch action games.");
+      });
+
+    // Fetch RPG Games
+    dispatch(fetchGames({ genreId: 5, page: 12, pageSize: 10 }))
+      .unwrap()
+      .then((games) => setRpgGames(games))
+      .catch((error) => {
+        console.error("Error fetching RPG games:", error);
+        notify("Failed to fetch RPG games.");
+      });
+
+    // Fetch Indie Games
+    dispatch(fetchGames({ genreId: 51, page: 1, pageSize: 10 }))
+      .unwrap()
+      .then((games) => setIndieGames(games))
+      .catch((error) => {
+        console.error("Error fetching Indie games:", error);
+        notify("Failed to fetch Indie games.");
+      })
+      .finally(() => setIsLoading(false));
+  }, [dispatch]);
 
   return (
     <>
@@ -37,70 +71,63 @@ export default function MainView() {
               <div className="mb-5 flex items-center gap-3 rounded-lg p-2">
                 <FeaturedGame />
               </div>
-              <CardGridPage>
-                {/* {games.isLoading ? (
-                  <p className="text-xl">Loading...</p>
-                ) : (
-                  gamesData.map((game) => (
-                    <div key={game.id}>
-                      <GameCard
-                        // notify={notify}
-                        img={game.background_image}
-                        title={game.name}
-                        rating={game.metacritic}
-                        genre={game.genres[0].name}
-                        slug={game.slug}
-                      />
-                    </div>
-                  ))
-                )} */}
-              </CardGridPage>
-              <CardGridSection title={`Action Games`}>
-                {gamesData.filter((game) => game.genres.some((g) => g.name === "Action"))
-                  .slice(0, 6)
-                  .map((game) => (
-                    <GameCard
-                      key={game.id}
-                      notify={notify}
-                      img={game.background_image}
-                      title={game.name}
-                      rating={game.metacritic}
-                      genre={game.genres[0].name}
-                      slug={game.slug}
-                      game={game}
-                    />
-                  ))}
+
+              <CardGridSection
+                title={"Action"}
+                icon={<GiPistolGun />}
+                btnLink={`/genre/4/action`}
+              >
+                {actionGames.map((game) => (
+                  <GameCard
+                    key={game.id}
+                    img={game.background_image}
+                    title={game.name}
+                    rating={game.metacritic}
+                    genre={game.genres[0]?.name}
+                    slug={game.slug}
+                    game={game}
+                    notify={notify}
+                  />
+                ))}
               </CardGridSection>
-              {/* <CardGridSection title={`Shooter Games`}>
-                {gamesData.filter((game) => game.genres.some((g) => g.name === "Shooter"))
-                  .slice(0, 6)
-                  .map((game) => (
-                    <GameCard
-                      key={game.id}
-                      // notify={notify}
-                      img={game.background_image}
-                      title={game.name}
-                      rating={game.metacritic}
-                      genre={game.genres[0].name}
-                      slug={game.slug}
-                    />
-                  ))}
+
+              <CardGridSection
+                title={"RPG"}
+                icon={<PiSwordBold />}
+                btnLink={`/genre/5/role-playing-games-rpg`}
+              >
+                {rpgGames.map((game) => (
+                  <GameCard
+                    key={game.id}
+                    img={game.background_image}
+                    title={game.name}
+                    rating={game.metacritic}
+                    genre={game.genres[0]?.name}
+                    slug={game.slug}
+                    game={game}
+                    notify={notify}
+                  />
+                ))}
               </CardGridSection>
-              <CardGridSection title={`Indie Games`}>
-                {gamesData.filter((game) => game.genres.some((g) => g.name === "Indie"))
-                  .slice(0, 6)
-                  .map((game) => (
-                    <GameCard
-                      key={game.id}
-                      // notify={notify}
-                      img={game.background_image}
-                      title={game.name}
-                      rating={game.metacritic}
-                      genre={game.genres[0].name}
-                      slug={game.slug}
-                    />
-                  ))}
-              </CardGridSection> */}
+
+              <CardGridSection
+                title={"Indie"}
+                icon={<MdGamepad />}
+                btnLink={`/genre/51/indie`}
+              >
+                {IndieGames.map((game) => (
+                  <GameCard
+                    key={game.id}
+                    img={game.background_image}
+                    title={game.name}
+                    rating={game.metacritic}
+                    genre={game.genres[0]?.name}
+                    slug={game.slug}
+                    game={game}
+                    notify={notify}
+                  />
+                ))}
+              </CardGridSection>
             </div>
           )}
           <Outlet />

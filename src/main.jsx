@@ -31,7 +31,7 @@ const router = createBrowserRouter([
             element: <GenresPage />,
           },
           {
-            path: "/genre/:slug",
+            path: "/genre/:genreId/:slug",
             element: <GenrePage />,
           },
           {
