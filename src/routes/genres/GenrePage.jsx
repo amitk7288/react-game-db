@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import CardGridPage from "../../components/ui-components/CardGridPage";
 import GameCard from "../../components/mainview/game-card/GameCard";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchGenres } from "../../features/genres/genresSlice";
@@ -14,6 +16,14 @@ export default function GenrePage() {
   const genres = useSelector((state) => state.genres);
 
   const [isLoading, setIsLoading] = useState(true);
+
+    const notify = (message) => {
+      toast(message, {
+        position: "top-right",
+        hideProgressBar: true,
+        className: "mt-[80px]"
+      });
+    };
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,7 +54,6 @@ export default function GenrePage() {
     );
   }
 
-  // Show loading indicator if fetching games
   if (isLoading) {
     return (
       <CardGridPage
@@ -55,7 +64,10 @@ export default function GenrePage() {
 
   return (
     <>
-      <CardGridPage title={`${genre.name} Games`} desc={`A list of ${genre.name} games:`}>
+      <CardGridPage
+        title={`${genre.name} Games`}
+        desc={`A list of ${genre.name} games:`}
+      >
         {gamesData.map((game) => (
           <GameCard
             key={game.id}
@@ -65,6 +77,7 @@ export default function GenrePage() {
             genre={game.genres[0]?.name}
             slug={game.slug}
             game={game}
+            notify={notify}
           />
         ))}
       </CardGridPage>
@@ -72,6 +85,7 @@ export default function GenrePage() {
         <button className="border p-4">Prev</button>
         <button className="border p-4">Next</button>
       </div>
+      <ToastContainer autoClose={3000} />
     </>
   );
 }
