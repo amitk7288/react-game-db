@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -18,15 +18,19 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
   const dispatch = useDispatch();
   const favGamesData = useSelector((state) => state.favGames);
   const wishGamesData = useSelector((state) => state.wishGames);
+  const savedGamesData = useSelector((state) => state.collections);
 
   const isFav = favGamesData.some((favGame) => favGame.id === game.id);
   const isWish = wishGamesData.some((wishGame) => wishGame.id === game.id);
+  const isSaved = savedGamesData.some((collection) =>
+    collection.games.some((savedGame) => savedGame.id === game.id),
+  );
 
   const gameObj = game;
 
   const [fav, setFav] = useState(isFav);
   const [wish, setWish] = useState(isWish);
-  const [save, setSave] = useState(false);
+  const [save, setSave] = useState(isSaved);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -93,42 +97,9 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
     event.stopPropagation();
     setIsOpen(true);
   }
-
-
-  // useEffect(() => {
-  //   console.log("FAV GAMES: ", favGamesData);
-  // }, [favGamesData])
-
-  // useEffect(() => {
-  //   console.log("WISH GAMES: ", wishGamesData);
-  // }, [wishGamesData]);
-
-  // function handleAddSave(event) {
-  //   event.stopPropagation();
-  //   setSave((prevState) => {
-  //     const newSaveState = !prevState;
-  //     if (mounted) {
-  //       notify(
-  //         <>
-  //           <div className="flex items-center gap-2">
-  //             {newSaveState ? (
-  //               <>
-  //                 <RiBookmarkFill className="text-sky-500" />
-  //                 <p className="text-[#222222]">Added to Collection!</p>
-  //               </>
-  //             ) : (
-  //               <>
-  //                 <MdOutlineBookmarkAdd className="text-xl" />
-  //                 <p className="text-black">Removed from Collection</p>
-  //               </>
-  //             )}
-  //           </div>
-  //         </>,
-  //       );
-  //     }
-  //     return newSaveState;
-  //   });
-  // }
+  useEffect(() => {
+    setSave(isSaved);
+  }, [savedGamesData, isSaved, game.id]);
 
   return (
     <div onClick={handleNavigate} className="cursor-pointer">
@@ -143,7 +114,7 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
           {/* Icon Buttons */}
           <div className="absolute bottom-[10px] right-[10px] flex gap-[10px]">
             <div
-              className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px]"
+              className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px] hover:border"
               onClick={(event) => handleAddFav(event, gameObj)}
             >
               {fav ? (
@@ -153,7 +124,7 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
               )}
             </div>
             <div
-              className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px]"
+              className="text-[18px] hover:border flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f]"
               onClick={(event) => handleAddWish(event, gameObj)}
             >
               {wish ? (
@@ -163,7 +134,7 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
               )}
             </div>
             <div
-              className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px]"
+              className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px] hover:border"
               onClick={(event) => handleAddSave(event)}
             >
               {save ? (
@@ -199,7 +170,11 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
       </div>
       {isOpen ? (
         <Modal closeModal={() => setIsOpen(false)}>
-          <AddToCollection onClose={() => setIsOpen(false)} gameObj={gameObj} />
+          <AddToCollection
+            onClose={() => setIsOpen(false)}
+            gameObj={gameObj}
+            notify={notify}
+          />
         </Modal>
       ) : null}
     </div>
