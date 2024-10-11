@@ -15,8 +15,7 @@ import {
   PiBookmarkSimple,
   PiBookmarkSimpleDuotone
 } from "react-icons/pi";
-
-import logo from "../../assets/temp-logo.png";
+import { GrReactjs } from "react-icons/gr";
 
 const sidebarIcons = [
   {
@@ -99,9 +98,16 @@ export default function SidebarIcons() {
   return (
     <div className="flex w-full flex-col items-center justify-between border-r pb-10 pt-5 dark:border-drkbrd dark:bg-drkbg dark:text-drkcol">
       <div className="flex w-full flex-col items-start gap-[5vh] px-5">
-        <div className="w-[40px]">
+        <div className="w-full">
           <Link to={`/`}>
-            <img src={logo} alt="logo" className="h-auto w-[35px] rounded-md" />
+            <div className="flex items-center gap-4">
+              <div className="flex h-[35px] w-[35px] items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-orange-500 ">
+                <GrReactjs className="text-2xl text-white" />
+              </div>
+              <p className="text-2xl lg:text-lg xl:text-xl 2xl:text-2xl font-medium">
+                React <span className="font-extralight">Games</span>
+              </p>
+            </div>
           </Link>
         </div>
         <div className="flex w-full flex-col items-center gap-[4vh] text-2xl text-black dark:text-drkcol">

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import useDarkMode from "../../hooks/usedarkMode";
-import logo from "../../assets/temp-logo.png";
+import { GrReactjs } from "react-icons/gr";
 import me from "../../assets/me.jpg";
 import Search from "./Search";
 import { RiMenu2Fill, RiCloseLargeLine } from "react-icons/ri";
@@ -145,11 +145,13 @@ const mobMenuIcons = [
             )}
           </div>
           <div className="flex-shrink-0 lg:hidden">
-            <img
-              src={logo}
-              alt="Gaming Logo"
-              className="h-auto w-[35px] rounded-md"
-            />
+            <Link to={`/`}>
+              <div className="flex items-center gap-4">
+                <div className="flex h-[35px] w-[35px] items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-orange-500">
+                  <GrReactjs className="text-2xl text-white" />
+                </div>
+              </div>
+            </Link>
           </div>
           <div className="w-[60%]">
             <Search />

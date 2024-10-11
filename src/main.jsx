@@ -15,6 +15,7 @@ import Wishlist from "./routes/Wishlist.jsx";
 import GenrePage from "./routes/genres/GenrePage.jsx";
 import Collections from "./routes/Collections.jsx";
 import CollectionPage from "./routes/CollectionPage.jsx";
+import SingleGamePage from "./routes/SingleGamePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <MainView />,
         children: [
+          {
+            path: "/game/:gameName",
+            element: <SingleGamePage />,
+          },
           {
             path: "/genres",
             element: <GenresPage />,
