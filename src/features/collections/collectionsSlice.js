@@ -9,20 +9,28 @@ const collectionsSlice = createSlice({
       state.push(action.payload);
     },
     updateCollection: (state, action) => {
-      const { id, game } = action.payload; // Destructure the payload to get the id and the game
-      const collection = state.find((collection) => collection.id === id); // Find the collection by id
+      const { id, game } = action.payload;
+      const collection = state.find((collection) => collection.id === id);
 
       if (collection) {
-        // Only update if the collection exists
-        collection.games.push(game); // Add the game to the collection's games array
+        const isGameInCollection = collection.games.some(
+          (g) => g.id === game.id,
+        );
+
+        if (isGameInCollection) {
+          collection.games = collection.games.filter((g) => g.id !== game.id);
+        } else {
+          collection.games.push(game);
+        }
       }
+    },
+    deleteCollection: (state, action) => {
+      return state.filter((collection) => collection.id !== action.payload);
     },
   },
 });
 
-// Exporting actions
-export const { createNewCollection, updateCollection } =
+export const { createNewCollection, updateCollection, deleteCollection } =
   collectionsSlice.actions;
 
-// Exporting reducer
 export default collectionsSlice.reducer;
