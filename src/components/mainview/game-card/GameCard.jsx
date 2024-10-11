@@ -109,7 +109,7 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
           <img
             src={img}
             alt="game title"
-            className="h-full w-full object-cover"
+            className="h-full w-[420px] object-cover"
           />
           {/* Icon Buttons */}
           <div className="absolute bottom-[10px] right-[10px] flex gap-[10px]">

@@ -8,7 +8,7 @@ export default function CardGridSection({ children, title, icon, btnLink }) {
         <div className="rounded-md p-1 text-3xl dark:text-white text-drkbg">{icon}</div>
         <p className="text-2xl font-semibold dark:text-white">{title}</p>
       </div>
-      <div className="grid place-items-center gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5">
+      <div className=" grid place-items-center md:place-items-start gap-3 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 3xl:grid-cols-5 mt-auto">
         {children}
       </div>
       <div className="mt-5">
