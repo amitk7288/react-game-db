@@ -22,56 +22,56 @@ import {
 } from "react-icons/pi";
 
 const Header = () => {
-const mobMenuIcons = [
-  {
-    id: 1,
-    icon: <PiSquaresFour />,
-    activeIcon: <PiSquaresFourDuotone />,
-    iconText: "Genres",
-    path: "/genres",
-    active: false,
-  },
-  {
-    id: 2,
-    icon: <PiBook />,
-    activeIcon: <PiBookDuotone />,
-    iconText: "Library",
-    path: "/library",
-    active: false,
-  },
-  {
-    id: 4,
-    icon: <PiUsers />,
-    activeIcon: <PiUsersDuotone />,
-    iconText: "Friends",
-    path: "/friends",
-    active: false,
-  },
-  {
-    id: 6,
-    icon: <PiHeart />,
-    activeIcon: <PiHeartDuotone />,
-    iconText: "Favourites",
-    path: "/favourites",
-    active: false,
-  },
-  {
-    id: 7,
-    icon: <PiMagicWand />,
-    activeIcon: <PiMagicWandDuotone />,
-    iconText: "Wishlist",
-    path: "/wishlist",
-    active: false,
-  },
-  {
-    id: 8,
-    icon: <PiBookmarkSimple />,
-    activeIcon: <PiBookmarkSimpleDuotone />,
-    iconText: "Collections",
-    path: "/collections",
-    active: false,
-  },
-];
+  const mobMenuIcons = [
+    {
+      id: 1,
+      icon: <PiSquaresFour />,
+      activeIcon: <PiSquaresFourDuotone />,
+      iconText: "Genres",
+      path: "/genres",
+      active: false,
+    },
+    {
+      id: 2,
+      icon: <PiBook />,
+      activeIcon: <PiBookDuotone />,
+      iconText: "Library",
+      path: "/library",
+      active: false,
+    },
+    {
+      id: 4,
+      icon: <PiUsers />,
+      activeIcon: <PiUsersDuotone />,
+      iconText: "Friends",
+      path: "/friends",
+      active: false,
+    },
+    {
+      id: 6,
+      icon: <PiHeart />,
+      activeIcon: <PiHeartDuotone />,
+      iconText: "Favourites",
+      path: "/favourites",
+      active: false,
+    },
+    {
+      id: 7,
+      icon: <PiMagicWand />,
+      activeIcon: <PiMagicWandDuotone />,
+      iconText: "Wishlist",
+      path: "/wishlist",
+      active: false,
+    },
+    {
+      id: 8,
+      icon: <PiBookmarkSimple />,
+      activeIcon: <PiBookmarkSimpleDuotone />,
+      iconText: "Collections",
+      path: "/collections",
+      active: false,
+    },
+  ];
 
   const [isMobMenuOpen, setIsMobMenuOpen] = useState(false);
   const [mobMenu, setMobMenu] = useState(mobMenuIcons);
@@ -100,18 +100,18 @@ const mobMenuIcons = [
     };
   }, [searchMobContainer, setIsSearchOpen]);
 
-    const handleClickIcon = (clickedIconID) => {
-      setMobMenu((prevState) =>
-        prevState.map((icon) =>
-          icon.id === clickedIconID
-            ? { ...icon, active: true }
-            : { ...icon, active: false },
-        ),
-      );
-      setTimeout(() => {
-        setIsMobMenuOpen(false);
-      }, 275);
-    };
+  const handleClickIcon = (clickedIconID) => {
+    setMobMenu((prevState) =>
+      prevState.map((icon) =>
+        icon.id === clickedIconID
+          ? { ...icon, active: true }
+          : { ...icon, active: false },
+      ),
+    );
+    setTimeout(() => {
+      setIsMobMenuOpen(false);
+    }, 275);
+  };
 
   return (
     <header className="fixed right-0 top-0 h-[80px] w-full border-b bg-white py-5 pl-[12px] pr-5 lg:w-[calc(100%_-_20vw)] lg:p-5 xl:w-[calc(100%_-_18vw)] 2xl:w-[calc(100%_-_15vw)] 3xl:w-[calc(100%_-_12vw)] dark:border-drkbrd dark:bg-drkbg dark:text-drkcol">
@@ -147,7 +147,7 @@ const mobMenuIcons = [
           <div className="flex-shrink-0 lg:hidden">
             <Link to={`/`}>
               <div className="flex items-center gap-4">
-                <div className="flex h-[35px] w-[35px] items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-orange-500">
+                <div className="from-gradPink to-gradOrange flex h-[35px] w-[35px] items-center justify-center rounded-md bg-gradient-to-r">
                   <GrReactjs className="text-2xl text-white" />
                 </div>
               </div>
@@ -230,7 +230,7 @@ const mobMenuIcons = [
                   onClick={() => handleClickIcon(item.id)}
                 >
                   <div
-                    className={`${item.active && `rounded-full bg-gradient-to-br from-pink-500 to-orange-500 p-1.5 text-white`} text-2xl`}
+                    className={`${item.active && `from-gradPink to-gradOrange rounded-full bg-gradient-to-r p-1.5 text-white`} text-2xl`}
                   >
                     {item.active ? item.activeIcon : item.icon}
                   </div>

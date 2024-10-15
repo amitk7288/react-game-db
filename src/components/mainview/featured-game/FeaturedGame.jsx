@@ -1,9 +1,6 @@
 import { useState } from "react";
-import GameTag from "./GameTag";
-import {
-  RiHeart3Line,
-  RiHeart3Fill,
-} from "react-icons/ri";
+import GenreTag from "./GenreTag";
+import { RiHeart3Line, RiHeart3Fill } from "react-icons/ri";
 
 export default function FeaturedGame() {
   const [like, setLike] = useState(false);
@@ -11,12 +8,10 @@ export default function FeaturedGame() {
     <div className="grid gap-3 md:grid-cols-[60%_auto] md:gap-4">
       <div className="relative">
         <div className="absolute m-3 flex items-center gap-2">
-          <GameTag />
-          <GameTag />
-          <GameTag />
+          <GenreTag />
         </div>
         <div className="absolute bottom-0 right-0 z-10 m-3 flex items-center gap-2">
-          <button className="flex w-fit items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-orange-500 px-2 py-[5px] hover:from-orange-500 hover:to-pink-500 dark:border-drkbrd dark:bg-drkbg dark:text-white">
+          <button className="from-gradPink hover:to-gradPink to-gradOrange hover:from-gradOrange flex w-fit items-center justify-center rounded-md bg-gradient-to-r px-2 py-[5px] dark:border-drkbrd dark:bg-drkbg dark:text-white">
             <p className="text-xs tracking-wider text-white xs:text-base 2xl:text-base">
               &nbsp;View game
             </p>

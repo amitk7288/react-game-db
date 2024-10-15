@@ -14,7 +14,6 @@ import { MdGamepad } from "react-icons/md";
 export default function MainView() {
   const dispatch = useDispatch();
   const gamesData = useSelector((state) => state.games.data) || [];
-  console.log(gamesData);
 
   const [isLoading, setIsLoading] = useState(true);
   const [actionGames, setActionGames] = useState([]);
@@ -132,8 +131,8 @@ export default function MainView() {
           )}
           <Outlet />
         </div>
+        <ToastContainer autoClose={1000} stacked />
       </main>
-      <ToastContainer autoClose={3000} />
     </>
   );
 }

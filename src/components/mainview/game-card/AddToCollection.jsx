@@ -1,9 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { PiPlusBold } from "react-icons/pi";
-import {
-  RiBookmarkFill,
-} from "react-icons/ri";
-import {MdOutlineBookmarkAdd} from "react-icons/md";
+import { RiBookmarkFill } from "react-icons/ri";
+import { MdOutlineBookmarkAdd } from "react-icons/md";
 import {
   createNewCollection,
   updateCollection,
@@ -167,7 +165,7 @@ export default function AddToCollection({ onClose, gameObj, notify }) {
                 disabled={!newCollectionValue}
                 className={`cursor-pointer rounded-md ${
                   newCollectionValue
-                    ? `bg-gradient-to-br from-pink-500 to-orange-500`
+                    ? `from-gradPink to-gradOrange bg-gradient-to-r`
                     : `bg-gray-500`
                 } px-3 py-1.5 font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
               >

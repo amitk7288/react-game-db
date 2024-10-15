@@ -16,7 +16,7 @@ export default function TestAPI() {
 
   useEffect(() => {
     fetch(
-      `https://api.rawg.io/api/genres?key=caf456a7b31d44debb2e8c049727e4a7`,
+      `https://api.rawg.io/api/platforms/lists/parents?key=caf456a7b31d44debb2e8c049727e4a7`,
     )
       .then((res) => res.json())
       .then((data) => {

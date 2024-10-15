@@ -13,7 +13,7 @@ import {
   PiMagicWand,
   PiMagicWandDuotone,
   PiBookmarkSimple,
-  PiBookmarkSimpleDuotone
+  PiBookmarkSimpleDuotone,
 } from "react-icons/pi";
 import { GrReactjs } from "react-icons/gr";
 
@@ -101,10 +101,10 @@ export default function SidebarIcons() {
         <div className="w-full">
           <Link to={`/`}>
             <div className="flex items-center gap-4">
-              <div className="flex h-[35px] w-[35px] items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-orange-500 ">
+              <div className="from-gradPink to-gradOrange flex h-[35px] w-[35px] items-center justify-center rounded-md bg-gradient-to-r">
                 <GrReactjs className="text-2xl text-white" />
               </div>
-              <p className="text-2xl lg:text-lg xl:text-xl 2xl:text-2xl font-medium">
+              <p className="text-2xl font-medium lg:text-lg xl:text-xl 2xl:text-2xl">
                 React <span className="font-extralight">Games</span>
               </p>
             </div>
@@ -124,7 +124,7 @@ export default function SidebarIcons() {
             >
               <div className="flex items-center gap-3">
                 <div
-                  className={`${icon.active && `rounded-full bg-gradient-to-br from-pink-500 to-orange-500 p-1.5 text-white`}`}
+                  className={`${icon.active && `from-gradPink to-gradOrange rounded-full bg-gradient-to-r p-1.5 text-white`}`}
                 >
                   {icon.active ? icon.activeIcon : icon.icon}
                 </div>
