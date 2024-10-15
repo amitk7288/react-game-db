@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         element: <MainView />,
         children: [
           {
-            path: "/game/:gameName",
+            path: "/game/:gameId/:gameName",
             element: <SingleGamePage />,
           },
           {

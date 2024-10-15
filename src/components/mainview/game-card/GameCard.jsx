@@ -9,12 +9,28 @@ import {
 } from "react-icons/ri";
 import { PiMagicWand, PiMagicWandFill } from "react-icons/pi";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
+import {
+  SiPlaystation,
+  SiXbox,
+  SiWindows10,
+  SiLinux,
+  SiAtari,
+  SiCommodore,
+  SiSega,
+} from "react-icons/si";
+import { AiFillAndroid } from "react-icons/ai";
+import { FaApple } from "react-icons/fa";
 import Modal from "../../ui-components/Modal";
 import AddToCollection from "./AddToCollection";
 import {addToFav} from "../../../features/fav_games/favGamesSlice";
 import { addToWish } from "../../../features/wish_games/wishGamesSlice";
+import nintendoLogo from "../../../assets/nintendo-logo.svg"
+import webLogo from "../../../assets/web-logo.svg"
+import iosLogo from "../../../assets/ios-logo.svg"
+import threedoLogo from "../../../assets/threedo-logo.svg"
+import neogeoLogo from "../../../assets/neogeo-logo.png";
 
-export default function GameCard({ notify, img, title, rating, genre, slug, game }) {
+export default function GameCard({ notify, img, title, genre, slug, game }) {
   const dispatch = useDispatch();
   const favGamesData = useSelector((state) => state.favGames);
   const wishGamesData = useSelector((state) => state.wishGames);
@@ -36,7 +52,7 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
   const navigate = useNavigate();
 
   function handleNavigate() {
-    navigate(`/game/${slug}`);
+    navigate(`/game/${game.id}/${slug}`, { state: { gameObj } });
   }
 
   function handleAddFav(event, gameObj) {
@@ -101,8 +117,26 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
     setSave(isSaved);
   }, [savedGamesData, isSaved, game.id]);
 
+  // parent platform icons
+  const platformIcons = {
+    PC: <SiWindows10 className="text-[16px]" />,
+    PlayStation: <SiPlaystation className="text-[20px]" />,
+    Xbox: <SiXbox className="text-[16px]" />,
+    iOS: <img src={iosLogo} alt="iOS" className="h-[16px]" />,
+    Android: <AiFillAndroid className="text-[20px] text-[#d3d3d3]" />,
+    "Apple Macintosh": <FaApple className="text-[18px]" />,
+    Linux: <SiLinux />,
+    Nintendo: <img src={nintendoLogo} alt="Nintendo" className="w-[20px]" />,
+    Atari: <SiAtari />,
+    Commodore: <SiCommodore />,
+    SEGA: <SiSega className="" />,
+    "3DO": <img src={threedoLogo} alt="3DO" className="w-[20px]" />,
+    NeoGeo: <img src={neogeoLogo} alt="neogeo" className="w-[17px]" />,
+    Web: <img src={webLogo} alt="Web" className="w-[16px]" />,
+  };
+
   return (
-    <div onClick={handleNavigate} className="cursor-pointer">
+    <div onClick={handleNavigate} className="cursor-pointer h-[100%]">
       <div className="grid w-full grid-rows-[200px_auto] overflow-hidden rounded-[10px] bg-slate-800 text-drkcol">
         {/* Image Section */}
         <div className="relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden">
@@ -124,7 +158,7 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
               )}
             </div>
             <div
-              className="text-[18px] hover:border flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f]"
+              className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px] hover:border"
               onClick={(event) => handleAddWish(event, gameObj)}
             >
               {wish ? (
@@ -151,20 +185,38 @@ export default function GameCard({ notify, img, title, rating, genre, slug, game
           {/* Header (Title and Rating) */}
           <div className="grid grid-cols-[80%_20%]">
             <h3 className="text-xl font-semibold text-white">{title}</h3>
-            <div className="flex h-[fit-content] items-center justify-center gap-[5px]">
-              <p>{(rating ?? 0) / 10}</p>
+            <div className="flex h-[fit-content] items-center justify-end gap-[5px]">
+              <p>{game?.rating.toFixed(1)}</p>
               <div className="flex items-center justify-center">
                 <RiStarFill className="text-yellow-600" />
               </div>
             </div>
           </div>
 
+          {/* metacritic rating for gamecard */}
+          {/* <div className="grid grid-cols-[80%_20%]">
+            <h3 className="text-xl font-semibold text-white">{title}</h3>
+            <div className="flex h-[fit-content] items-center justify-end gap-[5px]">
+              <div
+                className={`flex h-7 w-7 items-center justify-center ${game?.metacritic && `border`} rounded-md ${game?.metacritic <80 ? `border-yellow-500 text-yellow-500` : `border-lime-500 text-lime-500`}`}
+              >
+                <p>{game?.metacritic ? game.metacritic : null}</p>
+              </div>
+            </div>
+          </div> */}
+
           {/* Genre */}
           <span className="text-sm">{genre}</span>
 
           {/* Platforms */}
           <div className="flex gap-[5px]">
-            <p className="">platforms go here</p>
+            <ul className="flex items-center gap-2">
+              {game.parent_platforms.map((p) => (
+                <li key={p.platform.id}>
+                  {platformIcons[p.platform.name] || null}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

@@ -41,6 +41,53 @@ export const fetchGames = createAsyncThunk(
   },
 );
 
+export const fetchGameById = createAsyncThunk(
+  "games/fetchGameById",
+  async (gameId) => {
+    const response = await fetch(`${base_url}/games/${gameId}?key=${api_key}`);
+    const data = await response.json();
+    return data;
+  }
+);
+export const fetchGameAchievements = createAsyncThunk(
+  "games/fetchGameById",
+  async (gameId) => {
+    const response = await fetch(
+      `${base_url}/games/${gameId}/achievements?key=${api_key}`,
+    );
+    const data = await response.json();
+    return data;
+  }
+);
+export const fetchGameScreenshots = createAsyncThunk(
+  "games/fetchGameById",
+  async (gameId) => {
+    const response = await fetch(
+      `${base_url}/games/${gameId}/screenshots?key=${api_key}`,
+    );
+    const data = await response.json();
+    return data;
+  }
+);
+export const fetchGameDLCS = createAsyncThunk(
+  "games/fetchGameById",
+  async (gameId) => {
+    const response = await fetch(
+      `${base_url}/games/${gameId}/additions?key=${api_key}`,
+    );
+    const data = await response.json();
+    return data;
+  }
+);
+export const fetchGamesInSeries = createAsyncThunk(
+  "games/fetchGameById",
+  async (gameId) => {
+    const response = await fetch(`${base_url}/games/${gameId}/game-series?key=${api_key}`);
+    const data = await response.json();
+    return data;
+  }
+);
+
 
 const gamesSlice = createSlice({
   name: "games",
