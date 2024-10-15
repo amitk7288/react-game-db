@@ -1,9 +1,6 @@
-import { useState } from "react";
 import GenreTag from "./GenreTag";
-import { RiHeart3Line, RiHeart3Fill } from "react-icons/ri";
 
 export default function FeaturedGame() {
-  const [like, setLike] = useState(false);
   return (
     <div className="grid gap-3 md:grid-cols-[60%_auto] md:gap-4">
       <div className="relative">
@@ -16,16 +13,6 @@ export default function FeaturedGame() {
               &nbsp;View game
             </p>
           </button>
-          <div
-            onClick={() => setLike((like) => !like)}
-            className="flex h-[27px] w-[27px] cursor-pointer items-center justify-center rounded-lg bg-[#252f3f] text-sm text-white xs:h-[34px] xs:w-[34px] xl:text-base 2xl:h-[35px] 2xl:w-[35px] 2xl:text-lg"
-          >
-            {like ? (
-              <RiHeart3Fill className="text-red-500" />
-            ) : (
-              <RiHeart3Line />
-            )}
-          </div>
         </div>
         <img
           src={`https://wallpapercave.com/wp/wp9996646.jpg`}
@@ -73,7 +60,6 @@ export default function FeaturedGame() {
           />
         </div>
       </div>
-      <div className="text-center text-xs">slideshow buttons</div>
     </div>
   );
 }

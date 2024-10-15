@@ -130,7 +130,7 @@ export default function GameCard({ notify, img, title, genre, slug, game }) {
     Atari: <SiAtari />,
     Commodore: <SiCommodore />,
     SEGA: <SiSega className="" />,
-    "3DO": <img src={threedoLogo} alt="3DO" className="w-[20px]" />,
+    "3DO": <img src={threedoLogo} alt="3DO" className="w-[8px]" />,
     NeoGeo: <img src={neogeoLogo} alt="neogeo" className="w-[17px]" />,
     Web: <img src={webLogo} alt="Web" className="w-[16px]" />,
   };

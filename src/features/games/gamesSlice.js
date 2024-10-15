@@ -51,14 +51,15 @@ export const fetchGameById = createAsyncThunk(
 );
 export const fetchGameAchievements = createAsyncThunk(
   "games/fetchGameById",
-  async (gameId) => {
+  async ({gameId, page = 1}) => {
     const response = await fetch(
-      `${base_url}/games/${gameId}/achievements?key=${api_key}`,
+      `${base_url}/games/${gameId}/achievements?key=${api_key}&page=${page}`,
     );
     const data = await response.json();
     return data;
   }
 );
+
 export const fetchGameScreenshots = createAsyncThunk(
   "games/fetchGameById",
   async (gameId) => {
