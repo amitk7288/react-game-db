@@ -18,6 +18,7 @@ import { addToFav } from "../features/fav_games/favGamesSlice";
 import { addToWish } from "../features/wish_games/wishGamesSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { BsThreeDots } from "react-icons/bs";
 import {
   PiGameControllerDuotone,
@@ -67,12 +68,15 @@ export default function SingleGamePage() {
   const savedGamesData = useSelector((state) => state.collections);
 
   const [game, setGame] = useState(null);
-  const [achievements, setAchievements] = useState(null);
+  const [achievements, setAchievements] = useState([]);
   const [screenshots, setScreenshots] = useState(null);
   const [gameDLCS, setGameDLCS] = useState(null);
   const [gamesInSeries, setGamesInSeries] = useState(null);
   const [isReadMore, setIsReadMore] = useState(false);
   const [showAllAchievements, setShowAllAchievements] = useState(false);
+  const [achievementsResults, setAchievementsResults] = useState([]);
+  const [page, setPage] = useState(1); // Current page to track pagination
+  const [hasMore, setHasMore] = useState(true); // Boolean to indicate if there are more achievements
 
   const [fav, setFav] = useState(null);
   const [wish, setWish] = useState(null);
@@ -100,19 +104,51 @@ export default function SingleGamePage() {
     const isFav = favGamesData.some(
       (favGame) => favGame?.id === parseInt(gameId),
     );
-    const isWish = wishGamesData.some((wishGame) => wishGame?.id === parseInt(gameId));
+    const isWish = wishGamesData.some(
+      (wishGame) => wishGame?.id === parseInt(gameId),
+    );
     setFav(isFav);
     setWish(isWish);
   }, [dispatch, gameId, favGamesData, wishGamesData]);
   console.log("GAME INFO: ", game);
-  
+
   // achievements
   useEffect(() => {
-    dispatch(fetchGameAchievements(gameId))
-      .then((action) => setAchievements(action.payload))
+    dispatch(fetchGameAchievements({ gameId, page: 1 })) // Always fetch from page 1 initially
+      .then((action) => {
+        setAchievements(action.payload);
+        setAchievementsResults(action.payload.results);
+        // Check if there are more results
+        action.payload.next !== null ? setHasMore(true) : setHasMore(false);
+      })
       .catch((error) => console.error(error));
   }, [dispatch, gameId]);
-  console.log("ACHIEVEMENTS: ", achievements);
+
+const getMoreAchievements = () => {
+  if (!hasMore) {
+    return;
+  }
+
+  if (hasMore) {
+    const nextPage = page + 1;
+    dispatch(fetchGameAchievements({ gameId, page: nextPage }))
+      .then((action) => {
+        console.log(action.payload); // Add this line to inspect the payload
+        if (action.payload && action.payload.results) {
+          setAchievementsResults((prevResults) => [
+            ...prevResults,
+            ...action.payload.results,
+          ]);
+          action.payload.next !== null ? setHasMore(true) : setHasMore(false);
+          setPage(nextPage);
+        } else {
+          console.error("Results are not available:", action.payload);
+        }
+      })
+      .catch((error) => console.error(error));
+  }
+};
+
 
   // screenshots
   useEffect(() => {
@@ -156,7 +192,9 @@ export default function SingleGamePage() {
     PlayStation: <SiPlaystation className="text-[20px]" />,
     Xbox: <SiXbox className="text-[16px]" />,
     iOS: platformIconCustom[1].img,
-    Android: <AiFillAndroid className="text-[20px] text-[black] dark:text-[#d3d3d3]" />,
+    Android: (
+      <AiFillAndroid className="text-[20px] text-[black] dark:text-[#d3d3d3]" />
+    ),
     "Apple Macintosh": <FaApple className="text-[20px] dark:text-[#d3d3d3]" />,
     Linux: <SiLinux />,
     Nintendo: platformIconCustom[2].img,
@@ -170,7 +208,7 @@ export default function SingleGamePage() {
 
   const truncatedDesc = useTruncate(game?.description_raw, 300);
   const truncatedDescXL = useTruncate(game?.description_raw, 800);
-  
+
   const gameObj = game;
 
   const isSaved = savedGamesData.some((collection) =>
@@ -182,10 +220,10 @@ export default function SingleGamePage() {
   useEffect(() => {
     setSave(isSaved);
   }, [savedGamesData, isSaved, game?.id]);
-  
+
   if (!game) return <p>Loading game data...</p>;
 
-console.log("gameid", gameObj.id);
+  console.log("gameid", gameObj.id);
 
   function handleAddFav(event, gameObj) {
     event.stopPropagation();
@@ -246,11 +284,11 @@ console.log("gameid", gameObj.id);
     setIsOpen(true);
   }
 
-  function readMoreClickHandler () {
+  function readMoreClickHandler() {
     setIsReadMore((prevState) => !prevState);
   }
 
-  function openAchievementModal () {
+  function openAchievementModal() {
     setShowAllAchievements(true);
     setIsOpen(true);
   }
@@ -261,7 +299,9 @@ console.log("gameid", gameObj.id);
 
   return (
     <div className="flex flex-col gap-8 md:px-10">
-      <h1 className="text-[60px] font-semibold leading-tight dark:text-white">{game.name}</h1>
+      <h1 className="text-[60px] font-semibold leading-tight dark:text-white">
+        {game.name}
+      </h1>
       <div className="xl:grid xl:grid-cols-2 xl:gap-6">
         <div className="flex flex-col gap-3">
           <div>
@@ -433,7 +473,7 @@ console.log("gameid", gameObj.id);
             </p>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-            {achievements?.results.slice(0, 8).map((a) => (
+            {achievements?.results.map((a) => (
               <Achievement
                 key={a.id}
                 img={a.image}
@@ -531,17 +571,28 @@ console.log("gameid", gameObj.id);
             <p className="text-xl font-medium xs:text-2xl dark:text-white">
               All Achievements
             </p>
-            <div className="grid h-[200px] grid-cols-1 gap-3 overflow-y-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
-              {achievements?.results.map((a) => (
-                <Achievement
-                  key={a.id}
-                  img={a.image}
-                  name={a.name}
-                  progress={a.percent}
-                  desc={a.description}
-                />
-              ))}
-            </div>
+            <InfiniteScroll
+              dataLength={achievementsResults.length || 0}
+              next={getMoreAchievements}
+              hasMore={hasMore}
+              loader={<p className="text-center">Loading...</p>}
+              height={400}
+              endMessage={
+                <p className="mt-3 text-center font-light">All done!</p>
+              }
+            >
+              <div className="grid grid-cols-1 gap-3 overflow-y-auto sm:grid-cols-2">
+                {achievementsResults.map((a) => (
+                  <Achievement
+                    key={a.id}
+                    img={a.image}
+                    name={a.name}
+                    progress={a.percent}
+                    desc={a.description}
+                  />
+                ))}
+              </div>
+            </InfiniteScroll>
           </div>
         </Modal>
       ) : null}
