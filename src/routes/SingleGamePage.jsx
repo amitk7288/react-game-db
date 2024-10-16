@@ -14,6 +14,9 @@ import MetaInfo from "./singleGame-components/MetaInfo";
 import GenreTag from "../components/mainview/featured-game/GenreTag"
 import Modal from "../components/ui-components/Modal";
 import AddToCollection from "../components/mainview/game-card/AddToCollection";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { addToFav } from "../features/fav_games/favGamesSlice";
 import { addToWish } from "../features/wish_games/wishGamesSlice";
 import { toast } from "react-toastify";
@@ -22,7 +25,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { BsThreeDots } from "react-icons/bs";
 import {
   PiGameControllerDuotone,
-  //PiClockCountdownDuotone,
+  PiClockCountdownDuotone,
   PiCodeDuotone,
   PiCalendarXDuotone,
   PiMagicWandFill,
@@ -51,13 +54,11 @@ import {
   MdOutlineImage,
   MdOutlineSwipe,
   MdOutlineBookmarkAdd,
-  MdOutlineAccessTime,
   MdOutlineCategory,
 } from "react-icons/md";
 import { GrTrophy } from "react-icons/gr";
 import platformIconCustom from "../data/platformIcons";
 import neogeoLogo from "../assets/neogeo-logo.png";
-
 
 export default function SingleGamePage() {
   const dispatch = useDispatch();
@@ -75,8 +76,8 @@ export default function SingleGamePage() {
   const [isReadMore, setIsReadMore] = useState(false);
   const [showAllAchievements, setShowAllAchievements] = useState(false);
   const [achievementsResults, setAchievementsResults] = useState([]);
-  const [page, setPage] = useState(1); // Current page to track pagination
-  const [hasMore, setHasMore] = useState(true); // Boolean to indicate if there are more achievements
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
 
   const [fav, setFav] = useState(null);
   const [wish, setWish] = useState(null);
@@ -110,53 +111,99 @@ export default function SingleGamePage() {
     setFav(isFav);
     setWish(isWish);
   }, [dispatch, gameId, favGamesData, wishGamesData]);
-  console.log("GAME INFO: ", game);
 
   // achievements
   useEffect(() => {
-    dispatch(fetchGameAchievements({ gameId, page: 1 })) // Always fetch from page 1 initially
+    dispatch(fetchGameAchievements({ gameId, page: 1 }))
       .then((action) => {
         setAchievements(action.payload);
         setAchievementsResults(action.payload.results);
-        // Check if there are more results
         action.payload.next !== null ? setHasMore(true) : setHasMore(false);
       })
       .catch((error) => console.error(error));
   }, [dispatch, gameId]);
 
-const getMoreAchievements = () => {
-  if (!hasMore) {
-    return;
-  }
+  const getMoreAchievements = () => {
+    if (!hasMore) {
+      return;
+    }
 
-  if (hasMore) {
-    const nextPage = page + 1;
-    dispatch(fetchGameAchievements({ gameId, page: nextPage }))
-      .then((action) => {
-        console.log(action.payload); // Add this line to inspect the payload
-        if (action.payload && action.payload.results) {
-          setAchievementsResults((prevResults) => [
-            ...prevResults,
-            ...action.payload.results,
-          ]);
-          action.payload.next !== null ? setHasMore(true) : setHasMore(false);
-          setPage(nextPage);
-        } else {
-          console.error("Results are not available:", action.payload);
-        }
-      })
-      .catch((error) => console.error(error));
-  }
-};
-
+    if (hasMore) {
+      const nextPage = page + 1;
+      dispatch(fetchGameAchievements({ gameId, page: nextPage }))
+        .then((action) => {
+          console.log(action.payload);
+          if (action.payload && action.payload.results) {
+            setAchievementsResults((prevResults) => [
+              ...prevResults,
+              ...action.payload.results,
+            ]);
+            action.payload.next !== null ? setHasMore(true) : setHasMore(false);
+            setPage(nextPage);
+          } else {
+            console.error("Results are not available:", action.payload);
+          }
+        })
+        .catch((error) => console.error(error));
+    }
+  };
 
   // screenshots
   useEffect(() => {
     dispatch(fetchGameScreenshots(gameId))
-      .then((action) => setScreenshots(action.payload))
+      .then((action) => {
+        console.log("B");
+        setScreenshots(action.payload);
+            console.log("D");
+      })
       .catch((error) => console.error(error));
   }, [dispatch, gameId]);
-  console.log("SCREENSHOTS: ", screenshots);
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1920,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1536,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   // DLCS
   useEffect(() => {
@@ -165,7 +212,6 @@ const getMoreAchievements = () => {
       .then((action) => setGameDLCS(action.payload))
       .catch((error) => console.error(error));
   }, [dispatch, gameId]);
-  console.log("DLCS: ", gameDLCS);
 
   // In series
   useEffect(() => {
@@ -174,7 +220,6 @@ const getMoreAchievements = () => {
       .then((action) => setGamesInSeries(action.payload))
       .catch((error) => console.error(error));
   }, [dispatch, gameId]);
-  console.log("IN SERIES: ", gamesInSeries);
 
   // release date format
   const dateStr = "2018-11-14";
@@ -222,8 +267,6 @@ const getMoreAchievements = () => {
   }, [savedGamesData, isSaved, game?.id]);
 
   if (!game) return <p>Loading game data...</p>;
-
-  console.log("gameid", gameObj.id);
 
   function handleAddFav(event, gameObj) {
     event.stopPropagation();
@@ -415,7 +458,7 @@ const getMoreAchievements = () => {
             </div>
             <div className="grid grid-cols-2 grid-rows-2 gap-2 xl:h-fit xl:grid-rows-1 2xl:grid-cols-4">
               <MetaInfo
-                icon={<MdOutlineAccessTime />}
+                icon={<PiClockCountdownDuotone />}
                 name={`Avg Playtime: `}
                 value={`${game.playtime} ${game.playtime > 1 ? `hrs` : `hr`}`}
               />
@@ -438,28 +481,24 @@ const getMoreAchievements = () => {
           </div>
         </div>
       </div>
+
       <div className="">
         <div className="mb-2 flex items-center gap-2 dark:text-white">
           <MdOutlineImage className="text-2xl xl:text-3xl" />
           <p className="text-2xl font-medium 2xl:text-3xl">Screenshots</p>
         </div>
-        <div className="no-scrollbar relative flex w-full snap-x snap-mandatory gap-6 overflow-x-auto">
-          <div className="shrink-0 snap-center">
-            <div className="w-4 shrink-0 sm:w-48"></div>
-          </div>
+        <Slider {...settings} className="">
           {screenshots?.results.map((i) => (
-            <div
+            <img
               key={i.id}
-              className="shrink-0 snap-center first:pl-8 last:pr-8"
-            >
-              <img
-                className="h-40 w-80 shrink-0 rounded-lg bg-white shadow-xl"
-                src={i.image}
-              />
-            </div>
+              className={`scale-95 rounded-lg`}
+              src={i.image}
+              alt={`Screenshot ${i.id}`}
+              style={{ width: `90%`, height: `100%` }}
+            />
           ))}
-        </div>
-        <div className="mt-4 flex justify-center text-2xl">
+        </Slider>
+        <div className="mt-4 flex justify-center text-2xl xl:text-3xl">
           <MdOutlineSwipe />
         </div>
       </div>
@@ -501,23 +540,6 @@ const getMoreAchievements = () => {
           </div>
         </div>
       )}
-
-      {/* <div>
-        <div className="mb-2 flex items-center gap-2 dark:text-white">
-          <MdOutlineImage className="text-3xl" />
-          <p className="text-2xl font-medium">Screenshots</p>
-        </div>
-        <ul className="flex overflow-x-scroll">
-          {screenshots?.results.map((i) => (
-            <li
-              key={i.id}
-              className="cursor-pointer hover:rounded-md hover:outline"
-            >
-              <img src={i.image} className="w-[80%] rounded-md" />
-            </li>
-          ))}
-        </ul>
-      </div> */}
 
       {gameDLCS && gameDLCS.results.length !== 0 ? (
         <CardGridSection
@@ -578,7 +600,9 @@ const getMoreAchievements = () => {
               loader={<p className="text-center">Loading...</p>}
               height={400}
               endMessage={
-                <p className="mt-3 text-center font-light">All done!</p>
+                <p className="mt-3 text-center font-light">
+                  That&apos;s the lot!
+                </p>
               }
             >
               <div className="grid grid-cols-1 gap-3 overflow-y-auto sm:grid-cols-2">
