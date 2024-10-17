@@ -20,8 +20,7 @@ export default function GenresPage() {
   return (
       <CardGridPage
         title={`Genres`}
-        desc={`
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, cumque pariatur neque praesentium suscipit atque sapiente excepturi tempora, quas accusamus quia vero quis, libero dolor adipisci beatae provident? Mollitia ratione suscipit illum odit adipisci repudiandae fuga. Distinctio perferendis natus numquam.`}
+        desc={`Games categorised by genre`}
         icon={<PiSquaresFourDuotone />}
       >
         {genres.isLoading ? (

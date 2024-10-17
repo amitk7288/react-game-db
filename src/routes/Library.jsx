@@ -20,12 +20,7 @@ export default function Library() {
             <p className="capitalize">Library</p>
           </div>
           <p className="font-light">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat
-            laboriosam qui dignissimos dolorem aut sunt. Expedita repudiandae
-            enim fugit animi aliquam accusantium. Optio nisi possimus vitae
-            nulla officia consequuntur sit doloribus distinctio necessitatibus
-            autem voluptates cumque iusto eos omnis minima, asperiores assumenda
-            ut excepturi rerum? Debitis quod perferendis labore assumenda.
+            Your game library, here you can see at a glance some of your favourite/wishlist games
           </p>
         </div>
       </div>

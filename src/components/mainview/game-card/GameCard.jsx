@@ -193,18 +193,6 @@ export default function GameCard({ notify, img, title, genre, slug, game }) {
             </div>
           </div>
 
-          {/* metacritic rating for gamecard */}
-          {/* <div className="grid grid-cols-[80%_20%]">
-            <h3 className="text-xl font-semibold text-white">{title}</h3>
-            <div className="flex h-[fit-content] items-center justify-end gap-[5px]">
-              <div
-                className={`flex h-7 w-7 items-center justify-center ${game?.metacritic && `border`} rounded-md ${game?.metacritic <80 ? `border-yellow-500 text-yellow-500` : `border-lime-500 text-lime-500`}`}
-              >
-                <p>{game?.metacritic ? game.metacritic : null}</p>
-              </div>
-            </div>
-          </div> */}
-
           {/* Genre */}
           <span className="text-sm">{genre}</span>
 

@@ -10,10 +10,8 @@ const favSlice = createSlice({
       const existingGame = state.find((favGame) => favGame.id === game.id);
 
       if (existingGame) {
-        // If game is already in favorites, remove it (toggle behavior)
         return state.filter((favGame) => favGame.id !== game.id);
       } else {
-        // Add the game to favorites
         state.push(game);
       }
     },
