@@ -10,10 +10,8 @@ const wishSlice = createSlice({
       const existingGame = state.find((wishGame) => wishGame.id === game.id);
 
       if (existingGame) {
-        // If game is already in favorites, remove it (toggle behavior)
         return state.filter((wishGame) => wishGame.id !== game.id);
       } else {
-        // Add the game to favorites
         state.push(game);
       }
     },

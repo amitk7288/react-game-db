@@ -1,5 +1,8 @@
 import GenreTag from "./GenreTag";
 import { Link } from "react-router-dom";
+import gameImg from "../../../assets/hogwarts-legacy.webp";
+import hl1 from "../../../assets/hl-1.jpg";
+import hl2 from "../../../assets/hl-2.jpg";
 
 export default function FeaturedGame() {
   return (
@@ -18,7 +21,7 @@ export default function FeaturedGame() {
           </Link>
         </div>
         <img
-          src={`https://wallpapercave.com/wp/wp9996646.jpg`}
+          src={gameImg}
           alt="game"
           className="w-full rounded-lg"
         />
@@ -52,12 +55,12 @@ export default function FeaturedGame() {
         </div>
         <div className="grid grid-cols-2 items-end gap-3">
           <img
-            src={`https://media.rawg.io/media/resize/640/-/screenshots/723/7230cc1be966c19d2470a19d277b31e9.jpg`}
+            src={hl1}
             alt="game"
             className="rounded-lg"
           />
           <img
-            src={`https://media.rawg.io/media/resize/420/-/screenshots/f35/f35c6bcc541808298288ba49e50c37d5.jpg`}
+            src={hl2}
             alt="game"
             className="rounded-lg"
           />
