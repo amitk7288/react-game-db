@@ -61,6 +61,7 @@ import platformIconCustom from "../data/platformIcons";
 import neogeoLogo from "../assets/neogeo-logo.png";
 
 export default function SingleGamePage() {
+
   const dispatch = useDispatch();
   const { gameId } = useParams();
 

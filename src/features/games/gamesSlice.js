@@ -49,6 +49,19 @@ export const fetchGameById = createAsyncThunk(
     return data;
   }
 );
+
+export const searchGamesByTitle = createAsyncThunk(
+  "games/searchGamesByTitle",
+  async (search) => {
+    const response = await fetch(
+      `${base_url}/games?key=${api_key}&search=${search}`,
+    );
+    const data = await response.json();
+    return data;
+  }
+);
+
+
 export const fetchGameAchievements = createAsyncThunk(
   "games/fetchGameById",
   async ({gameId, page = 1}) => {

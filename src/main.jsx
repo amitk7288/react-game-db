@@ -16,6 +16,7 @@ import GenrePage from "./routes/genres/GenrePage.jsx";
 import Collections from "./routes/Collections.jsx";
 import CollectionPage from "./routes/CollectionPage.jsx";
 import SingleGamePage from "./routes/SingleGamePage.jsx";
+import SearchResultsPage from "./routes/SearchResultsPage.jsx"
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
           {
             path: "/game/:gameId/:gameName",
             element: <SingleGamePage />,
+          },
+          {
+            path: "/search/:searchQuery",
+            element: <SearchResultsPage />,
           },
           {
             path: "/genres",
@@ -71,6 +76,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   </Provider>,
 );
