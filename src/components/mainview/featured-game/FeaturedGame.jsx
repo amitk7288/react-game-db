@@ -1,4 +1,5 @@
 import GenreTag from "./GenreTag";
+import { Link } from "react-router-dom";
 
 export default function FeaturedGame() {
   return (
@@ -8,11 +9,13 @@ export default function FeaturedGame() {
           <GenreTag />
         </div>
         <div className="absolute bottom-0 right-0 z-10 m-3 flex items-center gap-2">
-          <button className="from-gradPink hover:to-gradPink to-gradOrange hover:from-gradOrange flex w-fit items-center justify-center rounded-md bg-gradient-to-r px-2 py-[5px] dark:border-drkbrd dark:bg-drkbg dark:text-white">
-            <p className="text-xs tracking-wider text-white xs:text-base 2xl:text-base">
-              &nbsp;View game
-            </p>
-          </button>
+          <Link to={`/game/906547/hogwarts-legacy`}>
+            <button className="from-gradPink hover:to-gradPink to-gradOrange hover:from-gradOrange flex w-fit items-center justify-center rounded-md bg-gradient-to-r px-2 py-[5px] dark:border-drkbrd dark:bg-drkbg dark:text-white">
+              <p className="text-xs tracking-wider text-white xs:text-base 2xl:text-base">
+                &nbsp;View game
+              </p>
+            </button>
+          </Link>
         </div>
         <img
           src={`https://wallpapercave.com/wp/wp9996646.jpg`}
