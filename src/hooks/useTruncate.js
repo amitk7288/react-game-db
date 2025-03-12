@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 function useTruncate(text, maxLength) {
   const truncatedText = useMemo(() => {
-    if (!text || text.length <= maxLength) {
+    if (!text || maxLength === undefined || text.length <= maxLength) {
       return text || "";
     }
     return `${text.substring(0, maxLength)}...`;
