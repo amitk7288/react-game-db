@@ -13,7 +13,7 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...globals.vitest,
+        ...vitest.environments.env.globals,
       },
       parserOptions: {
         ecmaVersion: "latest",
