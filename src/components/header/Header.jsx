@@ -114,7 +114,10 @@ const Header = () => {
   };
 
   return (
-    <header id="mainHeader" className="fixed right-0 top-0 h-[80px] w-full border-b bg-white py-5 pl-[12px] pr-5 lg:w-[calc(100%_-_20vw)] lg:p-5 xl:w-[calc(100%_-_18vw)] 2xl:w-[calc(100%_-_15vw)] 3xl:w-[calc(100%_-_12vw)] dark:border-drkbrd dark:bg-drkbg dark:text-drkcol">
+    <header
+      id="mainHeader"
+      className="fixed right-0 top-0 h-[80px] w-full border-b bg-white py-5 pl-[12px] pr-5 lg:w-[calc(100%_-_20vw)] lg:p-5 xl:w-[calc(100%_-_18vw)] 2xl:w-[calc(100%_-_15vw)] 3xl:w-[calc(100%_-_12vw)] dark:border-drkbrd dark:bg-drkbg dark:text-drkcol"
+    >
       <div
         id="mobile search"
         className={`absolute left-0 ${isSearchOpen ? `top-0 flex flex-col justify-center` : `top-[-80px]`} duration-400 z-10 h-[inherit] w-full bg-[#f7f7f7] transition-all ease-in-out lg:hidden dark:bg-drkbg2`}
@@ -147,7 +150,7 @@ const Header = () => {
           <div className="flex-shrink-0 lg:hidden">
             <Link to={`/`}>
               <div className="flex items-center gap-4">
-                <div className="from-gradPink to-gradOrange flex h-[35px] w-[35px] items-center justify-center rounded-md bg-gradient-to-r">
+                <div className="flex h-[35px] w-[35px] items-center justify-center rounded-md bg-gradient-to-r from-gradPink to-gradOrange">
                   <GrReactjs className="text-2xl text-white" />
                 </div>
               </div>
@@ -167,45 +170,47 @@ const Header = () => {
           >
             <PiMagnifyingGlass />
           </div>
-          <div className="flex items-center gap-3 lg:hidden">
-            {theme === "dark" ? (
-              <div
-                onClick={toggleTheme}
-                className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
-              >
-                <PiSun />
-              </div>
-            ) : (
-              <div
-                onClick={toggleTheme}
-                className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
-              >
-                <PiMoonStars />
-              </div>
-            )}
-          </div>
-          <div className="hidden lg:flex lg:items-center lg:gap-4">
-            {theme === "dark" ? (
-              <div
-                onClick={toggleTheme}
-                className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
-              >
-                <PiSun />
-              </div>
-            ) : (
-              <div
-                onClick={toggleTheme}
-                className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
-              >
-                <PiMoonStars />
-              </div>
-            )}
+          <div data-testid="darkMode-icon">
+            <div className="flex items-center gap-3 lg:hidden">
+              {theme === "dark" ? (
+                <button
+                  onClick={toggleTheme}
+                  className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
+                >
+                  <PiSun />
+                </button>
+              ) : (
+                <button
+                  onClick={toggleTheme}
+                  className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
+                >
+                  <PiMoonStars />
+                </button>
+              )}
+            </div>
+            <div className="hidden lg:flex lg:items-center lg:gap-4">
+              {theme === "dark" ? (
+                <button
+                  onClick={toggleTheme}
+                  className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
+                >
+                  <PiSun />
+                </button>
+              ) : (
+                <button
+                  onClick={toggleTheme}
+                  className="relative cursor-pointer rounded-full bg-transparent p-2 text-[25px] hover:bg-hvrcol dark:text-drkcol dark:hover:bg-drkhvrcol"
+                >
+                  <PiMoonStars />
+                </button>
+              )}
+            </div>
           </div>
           <div className="flex cursor-pointer items-center gap-2">
-            <div className="h-8 w-8 overflow-hidden rounded-full">
-              <img src={me} alt="profilepic" />
-              {/* login info */}
-            </div>
+            <div
+              className="h-8 w-8 rounded-full bg-cover bg-center"
+              style={{ backgroundImage: `url(${me})` }}
+            />
           </div>
         </div>
       </div>
@@ -230,7 +235,7 @@ const Header = () => {
                   onClick={() => handleClickIcon(item.id)}
                 >
                   <div
-                    className={`${item.active && `from-gradPink to-gradOrange rounded-full bg-gradient-to-r p-1.5 text-white`} text-2xl`}
+                    className={`${item.active && `rounded-full bg-gradient-to-r from-gradPink to-gradOrange p-1.5 text-white`} text-2xl`}
                   >
                     {item.active ? item.activeIcon : item.icon}
                   </div>
