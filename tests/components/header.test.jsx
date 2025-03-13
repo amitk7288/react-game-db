@@ -1,29 +1,50 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, logRoles } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import Header from "../../src/components/header/Header";
+import { expect } from "vitest";
 
-describe.skip("Header tests", () => {
+describe("Header tests", () => {
 
-  it("renders correctly", () => {
+  const renderHeader = () =>
     render(
       <MemoryRouter>
         <Header />
       </MemoryRouter>,
     );
+
+  it("should render correctly", () => {
+    renderHeader();
     const headerElement = screen.getByRole("banner");
     expect(headerElement).toBeInTheDocument();
+    logRoles(headerElement); // logs the roles in the element to the console
   });
 
-  it("should apply the correct theme based on localStorage value", () => {});
+  it('should contain a search box with input field', () => {
+    renderHeader();
+    const searchBoxes = screen.getAllByRole("searchbox");
+    expect(searchBoxes.length).toBe(2);
+  });
 
-  it("searches for a game", () => {
-    render(
-      <MemoryRouter>
-        <Header />
-      </MemoryRouter>,
-    );
-    const headerElement = screen.getByRole("banner");
-    expect(headerElement).toBeInTheDocument();
+  it('should contain a dark mode icon', () => {
+    renderHeader();
+    const darkModeIcon = screen.getByTestId("darkMode-icon");
+    expect(darkModeIcon).toBeInTheDocument();
+  });
+
+  it('should toggle dark mode on icon click', async () => {
+    renderHeader();
+    const user = userEvent.setup();
+
+    const darkModeContainer = screen.getByTestId("darkMode-icon");
+    const drkModeBtns = darkModeContainer.querySelectorAll("button");
+
+    expect(drkModeBtns.length).toBe(2);
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
+    await user.click(drkModeBtns[1]);
+    expect(document.documentElement.classList.contains("dark")).toBe(false);
+    await user.click(drkModeBtns[1]);
+    expect(document.documentElement.classList.contains("dark")).toBe(true);
   });
 
 });
