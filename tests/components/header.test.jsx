@@ -2,7 +2,6 @@ import { render, screen, logRoles } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import Header from "../../src/components/header/Header";
-import { expect } from "vitest";
 
 describe("Header tests", () => {
 

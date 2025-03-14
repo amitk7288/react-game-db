@@ -199,7 +199,7 @@ export default function GameCard({ notify, img, title, genre, slug, game }) {
           {/* Platforms */}
           <div className="flex gap-[5px]">
             <ul className="flex items-center gap-2">
-              {game.parent_platforms.map((p) => (
+              {game.parent_platforms?.map((p) => (
                 <li key={p.platform.id}>
                   {platformIcons[p.platform.name] || null}
                 </li>
