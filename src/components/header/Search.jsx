@@ -18,8 +18,12 @@ export default function Search({ isSearchOpen }) {
   function handleSearchSubmit(e) {
     e.preventDefault();
     console.log(`searching for ${searchQuery}`);
-    navigate(`/search/${searchQuery}`);
-    isSearchOpen(false);
+    const normalisedQuery = searchQuery.trim().replace(/\s+/g, " ");
+    if (normalisedQuery !== "") {
+      navigate(`/search/${normalisedQuery}`);
+    }
+    isSearchOpen = false;
+    setSearchQuery("");
   }
 
   return (
