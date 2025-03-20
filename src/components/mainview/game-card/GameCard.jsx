@@ -136,7 +136,11 @@ export default function GameCard({ notify, img, title, genre, slug, game }) {
   };
 
   return (
-    <div onClick={handleNavigate} className="cursor-pointer h-[100%]">
+    <div
+      data-testid="gamecard"
+      onClick={handleNavigate}
+      className="h-[100%] cursor-pointer"
+    >
       <div className="grid w-full grid-rows-[200px_auto] overflow-hidden rounded-[10px] bg-slate-800 text-drkcol">
         {/* Image Section */}
         <div className="relative flex h-full w-full cursor-pointer items-center justify-center overflow-hidden">
@@ -147,36 +151,51 @@ export default function GameCard({ notify, img, title, genre, slug, game }) {
           />
           {/* Icon Buttons */}
           <div className="absolute bottom-[10px] right-[10px] flex gap-[10px]">
-            <div
+            <button
+              data-testid="fav-button"
               className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px] hover:border"
               onClick={(event) => handleAddFav(event, gameObj)}
             >
               {fav ? (
-                <RiHeart3Fill className="text-red-500" />
+                <RiHeart3Fill
+                  data-testid="favedGame"
+                  className="text-red-500"
+                />
               ) : (
-                <RiHeart3Line />
+                <RiHeart3Line data-testid="unfavedGame" />
               )}
-            </div>
-            <div
+            </button>
+            <button
+              data-testid="wish-button"
               className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px] hover:border"
               onClick={(event) => handleAddWish(event, gameObj)}
             >
               {wish ? (
-                <PiMagicWandFill className="text-lime-500" />
+                <PiMagicWandFill
+                  data-testid="wishedGame"
+                  className="text-lime-500"
+                />
               ) : (
-                <PiMagicWand />
+                <PiMagicWand data-testid="unwishedGame" />
               )}
-            </div>
-            <div
+            </button>
+            <button
+              data-testid="save-button"
               className="flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-[8px] bg-[#252f3f] text-[18px] hover:border"
               onClick={(event) => handleAddSave(event)}
             >
               {save ? (
-                <RiBookmarkFill className="text-sky-500" />
+                <RiBookmarkFill
+                  data-testid="savedGame"
+                  className="text-sky-500"
+                />
               ) : (
-                <MdOutlineBookmarkAdd className="text-xl" />
+                <MdOutlineBookmarkAdd
+                  data-testid="unsavedGame"
+                  className="text-xl"
+                />
               )}
-            </div>
+            </button>
           </div>
         </div>
 
@@ -198,12 +217,14 @@ export default function GameCard({ notify, img, title, genre, slug, game }) {
 
           {/* Platforms */}
           <div className="flex gap-[5px]">
-            <ul className="flex items-center gap-2">
-              {game.parent_platforms?.map((p) => (
-                <li key={p.platform.id}>
-                  {platformIcons[p.platform.name] || null}
-                </li>
-              ))}
+            <ul
+              data-testid="platform-icons"
+              className="flex items-center gap-2"
+            >
+              {game.parent_platforms?.map((p) => {
+                const icon = platformIcons[p.platform.name];
+                return icon ? <li key={p.platform.id}>{icon}</li> : null;
+              })}
             </ul>
           </div>
         </div>
