@@ -2,7 +2,7 @@ import Search from "../../src/components/header/Search";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useNavigate } from "react-router-dom";
-import { expect, vi } from "vitest";
+import { vi } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 
 vi.mock(import("react-router-dom"), async (importOriginal) => {
