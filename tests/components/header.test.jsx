@@ -16,7 +16,7 @@ describe("Header tests", () => {
     renderHeader();
     const headerElement = screen.getByRole("banner");
     expect(headerElement).toBeInTheDocument();
-    logRoles(headerElement); // logs the roles in the element to the console
+    logRoles(headerElement);
   });
 
   it('should contain a search box with input field', () => {
