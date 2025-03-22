@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, matchPath } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import {
   PiSquaresFour,
@@ -73,13 +73,9 @@ export default function SidebarIcons() {
   const [icons, setIcons] = useState(sidebarIcons);
 
   useEffect(() => {
-    const isProjectPage = matchPath({ path: "/project/*" }, location.pathname);
     setIcons((prevState) =>
       prevState.map((icon) => {
-        const isActive =
-          icon.path === location.pathname ||
-          (icon.iconText === "Board" && isProjectPage);
-
+        const isActive = icon.path === location.pathname;
         return { ...icon, active: isActive };
       }),
     );
