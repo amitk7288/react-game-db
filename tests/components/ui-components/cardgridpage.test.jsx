@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import CardGridPage from "../../../src/components/ui-components/CardGridPage"
 import {PiHeartDuotone} from "react-icons/pi";
 
-describe.only('UI - Card Grid Page Tests', () => {
+describe('UI - Card Grid Page Tests', () => {
 
   const mockProps = {
     children: <div>child 1</div>,
