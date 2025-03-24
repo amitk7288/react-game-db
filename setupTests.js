@@ -1,5 +1,6 @@
-import { beforeEach, vi } from "vitest";
+import { beforeAll, beforeEach, afterAll, afterEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
+import {server} from  "./tests/mocks/server";
 import "@testing-library/jest-dom";
 
 Object.defineProperty(window, "matchMedia", {
@@ -16,6 +17,8 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
+beforeAll(() => server.listen({ onUnhandledRequest: "warn" }));
+
 beforeEach(() => {
   vi.clearAllMocks();
 });
@@ -23,4 +26,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();
+  server.resetHandlers();
 });
+
+afterAll(() => server.close());
