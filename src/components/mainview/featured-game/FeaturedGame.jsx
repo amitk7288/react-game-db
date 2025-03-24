@@ -6,7 +6,7 @@ import hl2 from "../../../assets/hl-2.jpg";
 
 export default function FeaturedGame() {
   return (
-    <div className="grid gap-3 md:grid-cols-[60%_auto] md:gap-4">
+    <div data-testid="featuredGame" className="grid gap-3 md:grid-cols-[60%_auto] md:gap-4">
       <div className="relative">
         <div className="absolute m-3 flex items-center gap-2">
           <GenreTag />

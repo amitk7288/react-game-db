@@ -34,7 +34,9 @@ export default function MainView() {
     // Fetch Action Games
     dispatch(fetchGames({ genreId: 4, page: 2, pageSize: 10 }))
       .unwrap()
-      .then((games) => setActionGames(games))
+      .then((games) => {
+        setActionGames(games);
+      })
       .catch((error) => {
         console.error("Error fetching action games:", error);
         notify("Failed to fetch action games.");
@@ -43,7 +45,9 @@ export default function MainView() {
     // Fetch RPG Games
     dispatch(fetchGames({ genreId: 5, page: 12, pageSize: 10 }))
       .unwrap()
-      .then((games) => setRpgGames(games))
+      .then((games) => {
+        setRpgGames(games);
+      })
       .catch((error) => {
         console.error("Error fetching RPG games:", error);
         notify("Failed to fetch RPG games.");
@@ -52,12 +56,17 @@ export default function MainView() {
     // Fetch Indie Games
     dispatch(fetchGames({ genreId: 51, page: 1, pageSize: 10 }))
       .unwrap()
-      .then((games) => setIndieGames(games))
+      .then((games) => {
+        setIndieGames(games);
+      })
       .catch((error) => {
         console.error("Error fetching Indie games:", error);
         notify("Failed to fetch Indie games.");
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        console.log("Setting isLoading to false.");
+        setIsLoading(false);
+      });
   }, [dispatch]);
 
   return (
@@ -71,7 +80,7 @@ export default function MainView() {
               </div>
 
               {isLoading ? (
-                <p>Loading...</p>
+                <p data-testid="loading">Loading...</p>
               ) : (
                 <>
                   <CardGridSection

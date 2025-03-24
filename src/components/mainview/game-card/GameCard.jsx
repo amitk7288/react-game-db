@@ -203,9 +203,14 @@ export default function GameCard({ notify, img, title, genre, slug, game }) {
         <div className="flex flex-col gap-[10px] p-[15px]">
           {/* Header (Title and Rating) */}
           <div className="grid grid-cols-[80%_20%]">
-            <h3 className="text-xl font-semibold text-white">{title}</h3>
+            <h3
+              data-testid="gameTitle"
+              className="text-xl font-semibold text-white"
+            >
+              {title}
+            </h3>
             <div className="flex h-[fit-content] items-center justify-end gap-[5px]">
-              <p>{game?.rating.toFixed(1)}</p>
+              <p>{game?.rating?.toFixed(1)}</p>
               <div className="flex items-center justify-center">
                 <RiStarFill className="text-yellow-600" />
               </div>
