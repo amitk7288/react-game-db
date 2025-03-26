@@ -156,7 +156,7 @@ const Header = () => {
               </div>
             </Link>
           </div>
-          <div className="w-[60%]">
+          <div id="desktop-search" className="w-[60%]">
             <Search />
           </div>
         </div>

@@ -29,6 +29,7 @@ export default function Modal({ children, closeModal }) {
 
       {/* Modal content */}
       <dialog
+        data-cy="modal"
         className="fixed inset-0 z-[100] flex items-center justify-center rounded-md bg-transparent"
         aria-modal
         onClick={(e) => e.stopPropagation()}

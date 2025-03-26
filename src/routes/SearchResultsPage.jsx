@@ -10,7 +10,7 @@ import { PiMagnifyingGlassDuotone } from "react-icons/pi";
 
 export default function SearchResults() {
   const dispatch = useDispatch();
-  const {searchQuery} = useParams();
+  const { searchQuery } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
   const [searchedGames, setSearchedGames] = useState([]);
@@ -24,15 +24,11 @@ export default function SearchResults() {
   };
 
   useEffect(() => {
-    console.log('A');
     setIsLoading(true);
-        console.log("B");
     dispatch(searchGamesByTitle(searchQuery))
       .unwrap()
       .then((games) => setSearchedGames(games));
-        console.log("C");      
     setIsLoading(false);
-        console.log("E");
   }, [dispatch, searchQuery]);
 
   if (isLoading) {
