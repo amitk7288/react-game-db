@@ -64,7 +64,6 @@ export default function MainView() {
         notify("Failed to fetch Indie games.");
       })
       .finally(() => {
-        console.log("Setting isLoading to false.");
         setIsLoading(false);
       });
   }, [dispatch]);

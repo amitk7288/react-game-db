@@ -19,7 +19,6 @@ export default function Search({ isSearchOpen }) {
 
   function handleSearchSubmit(e) {
     e.preventDefault();
-    console.log(`searching for ${searchQuery}`);
     const normalisedQuery = searchQuery.trim().replace(/\s+/g, " ");
     if (normalisedQuery !== "") {
       navigate(`/search/${normalisedQuery}`);

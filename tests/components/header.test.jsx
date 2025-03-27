@@ -1,4 +1,4 @@
-import { render, screen, logRoles } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import Header from "../../src/components/header/Header";
@@ -16,7 +16,6 @@ describe("Header tests", () => {
     renderHeader();
     const headerElement = screen.getByRole("banner");
     expect(headerElement).toBeInTheDocument();
-    logRoles(headerElement);
   });
 
   it('should contain a search box with input field', () => {

@@ -58,8 +58,6 @@ export default function GameCard({ notify, img, title, genre, slug, game }) {
   function handleAddFav(event, gameObj) {
     event.stopPropagation();
     setFav((prevState) => !prevState);
-    console.log("gameobj", gameObj);
-
     dispatch(addToFav(gameObj));
     {
       notify &&
@@ -85,8 +83,6 @@ export default function GameCard({ notify, img, title, genre, slug, game }) {
   function handleAddWish(event, gameObj) {
     event.stopPropagation();
     setWish((prevState) => !prevState);
-    console.log("gameobj", gameObj);
-
     dispatch(addToWish(gameObj));
     {
       notify &&

@@ -32,8 +32,6 @@ describe('Mainview tests', () => {
     expect(screen.getByText("Skyrim")).toBeInTheDocument();
     expect(screen.getByText("Indie Game")).toBeInTheDocument();
 
-    screen.debug();
-
   })
 
 })
