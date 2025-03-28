@@ -50,19 +50,6 @@ jobs:
             node-version: ${{ matrix.node-version }}
             cache: 'npm'
 
-        - name: Install Dependencies
-          run: npm ci
-
-        - name: Start Application
-          run: npm run dev &
-          env:
-            CYPRESS_BASE_URL: 'http://localhost:5173'
-        
-        - name: Wait for the server to be ready
-          run: npx wait-on http://localhost:5173
-
-        - name: Run Cypress e2e tests
-          run: npx cypress run
-          env:
-            CYPRESS_BASE_URL: 'http://localhost:5173'
-            VITE_BASE_URL: 'https://api.rawg.io/api'
+        - name: Cypress run
+          uses: cypress-io/github-action@v6
+          
