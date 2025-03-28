@@ -44,18 +44,14 @@ jobs:
         - name: Checkout Repository
           uses: actions/checkout@v4
 
-        - name: Setup Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: 'npm'
-
         - name: Cypress run
           uses: cypress-io/github-action@v6
           with:
-            start: npm run dev
-            wait-on: http://localhost:5173
             browser: chrome
+            build: npm run build
+            start: nom run start
+            wait-on: http://localhost:5173
+          env:
+            VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+            VITE_RAWG_API: ${{ secrets.VITE_RAWG_API }}
 
-        - name: Log Application Status
-          run: curl -I http://localhost:5173
