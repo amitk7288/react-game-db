@@ -56,3 +56,6 @@ jobs:
             start: npm run dev
             wait-on: http://localhost:5173
             browser: chrome
+
+        - name: Log Application Status
+          run: curl -I http://localhost:5173
