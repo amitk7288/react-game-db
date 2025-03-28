@@ -49,7 +49,7 @@ jobs:
           with:
             browser: chrome
             build: npm run build
-            start: nom run start
+            start: npm run start
             wait-on: http://localhost:5173
           env:
             VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
