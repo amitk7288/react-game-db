@@ -51,5 +51,6 @@ jobs:
             build: npm run build
             start: npm run dev
             wait-on: http://localhost:5173
-
-
+          env:
+            VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+            VITE_RAWG_API: ${{ secrets.VITE_RAWG_API }}
