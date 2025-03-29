@@ -37,3 +37,5 @@ jobs:
           name: build-output
           path: dist/
           overwrite: true
+    outputs:
+      run-id: ${{ github.run_id }}
